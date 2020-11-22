@@ -1,6 +1,6 @@
 {
     "name": "james.xue/laravel-elasticsearch",
-    "description": "",
+    "description": "A Laravel Service Provider for the Elasticsearch API client",
     "type": "library",
     "support": {
         "issues": "https://github.com/xiaoxuan6/laravel-elasticsearch/issues",
