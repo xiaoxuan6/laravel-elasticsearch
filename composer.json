@@ -1,0 +1,35 @@
+{
+    "name": "james.xue/laravel-elasticsearch",
+    "description": "",
+    "type": "library",
+    "support": {
+        "issues": "https://github.com/xiaoxuan6/laravel-elasticsearch/issues",
+        "source": "https://github.com/xiaoxuan6/laravel-elasticsearch"
+    },
+    "authors": [
+        {
+            "name": "james.xue",
+            "email": "1527736751@qq.com"
+        }
+    ],
+    "require": {
+        "elasticsearch/elasticsearch": "~6.0||~7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vinhson\\Elasticsearch\\": "src/"
+        },
+        "files":[
+            "src/helper.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers":[
+                "Vinhson\\Elasticsearch\\ElasticsearchServiceProvider"
+            ]
+        }
+    },
+    "license": "MIT",
+    "minimum-stability": "dev"
+}
