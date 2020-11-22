@@ -24,5 +24,22 @@ class ElasticsearchServiceProvider extends ServiceProvider
 
             return $ClientBuilder->build();
         });
+
+        $this->app->singleton('SearchBuilder', function($app){
+            return new SearchBuilder(
+                $app['config']->get("database.elasticsearch.index", "elastic_index"),
+                $app['config']->get("database.elasticsearch.type", "elastic_type")
+            );
+        });
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return ["SearchBuilder"];
     }
 }
