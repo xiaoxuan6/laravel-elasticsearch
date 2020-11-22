@@ -16,13 +16,13 @@ if (!function_exists("es")) {
     }
 }
 
-if (!function_exists("search_builder")) {
+if (!function_exists("search")) {
     /**
      * @param null $index
      * @param null $type
      * @return \Vinhson\Elasticsearch\SearchBuilder
      */
-    function search_builder($index = null, $type = null)
+    function search($index = null, $type = null)
     {
         $arguments = func_get_args();
 
