@@ -27,7 +27,10 @@
         "laravel": {
             "providers":[
                 "Vinhson\\Elasticsearch\\ElasticsearchServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "SearchBuilder" : "Vinhson\\Elasticsearch\\Facades\\SearchBuilder"
+            }
         }
     },
     "license": "MIT",

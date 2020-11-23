@@ -16,7 +16,7 @@ class ElasticsearchServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('es', function () {
-            $ClientBuilder = ClientBuilder::create()->setHosts(config('database.elasticsearch.host', "localhost:9200"));
+            $ClientBuilder = ClientBuilder::create()->setHosts(config('database.elasticsearch.host', ["localhost:9200"]));
 
             if (app()->environment('local') && config("database.elasticsearch.debug", false)) {
                 $ClientBuilder->setLogger(app('log')->driver());

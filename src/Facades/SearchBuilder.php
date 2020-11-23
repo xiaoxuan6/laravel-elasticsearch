@@ -1,6 +1,6 @@
 <?php
 
-namespace Vhinshon\Elasticsearch\Facades;
+namespace Vinhson\Elasticsearch\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
