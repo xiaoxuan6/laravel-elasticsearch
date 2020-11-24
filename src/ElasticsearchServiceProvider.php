@@ -8,28 +8,39 @@
 
 namespace Vinhson\Elasticsearch;
 
-use Elasticsearch\ClientBuilder;
 use Illuminate\Support\ServiceProvider;
 
 class ElasticsearchServiceProvider extends ServiceProvider
 {
+    public function boot()
+    {
+        $this->publishes([__DIR__ . "/../config/elasticsearch.php" => config_path("elasticsearch.php")], "elasticsearch");
+    }
+
     public function register()
     {
-        $this->app->bind('es', function () {
-            $ClientBuilder = ClientBuilder::create()->setHosts(config('database.elasticsearch.host', ["localhost:9200"]));
+        $this->registerElasticsearch();
 
-            if (app()->environment('local') && config("database.elasticsearch.debug", false)) {
-                $ClientBuilder->setLogger(app('log')->driver());
-            }
+        $this->app->singleton('SearchBuilder', function () {
+            return new SearchBuilder(
+                config("elasticsearch.index", "elastic_index"),
+                config("elasticsearch.type", "elastic_type")
+            );
+        });
+    }
 
-            return $ClientBuilder->build();
+    protected function registerElasticsearch()
+    {
+        $this->app->singleton('elasticsearch.factory', function () {
+            return new Factory();
         });
 
-        $this->app->singleton('SearchBuilder', function($app){
-            return new SearchBuilder(
-                $app['config']->get("database.elasticsearch.index", "elastic_index"),
-                $app['config']->get("database.elasticsearch.type", "elastic_type")
-            );
+        $this->app->singleton('elasticsearch', function ($app) {
+            return new Manager($app, $app['elasticsearch.factory']);
+        });
+
+        $this->app->bind("elasticsearch.connection", function ($app) {
+            return $app['elasticsearch']->connection();
         });
     }
 
@@ -40,6 +51,6 @@ class ElasticsearchServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ["SearchBuilder"];
+        return ["SearchBuilder", "elasticsearch.connection"];
     }
 }

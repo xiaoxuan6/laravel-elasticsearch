@@ -2,6 +2,12 @@
     "name": "james.xue/laravel-elasticsearch",
     "description": "A Laravel Service Provider for the Elasticsearch API client",
     "type": "library",
+    "keywords": [
+        "laravel",
+        "elasticsearch",
+        "search",
+        "client"
+    ],
     "support": {
         "issues": "https://github.com/xiaoxuan6/laravel-elasticsearch/issues",
         "source": "https://github.com/xiaoxuan6/laravel-elasticsearch"
@@ -13,7 +19,12 @@
         }
     ],
     "require": {
-        "elasticsearch/elasticsearch": "~6.0||~7.0"
+        "elasticsearch/elasticsearch": "~6.0||~7.0",
+        "laravel/framework": "~5.0||~6.0||~7.0||~8.0",
+        "illuminate/support": "~5.0||~6.0||~7.0||~8.0",
+        "guzzlehttp/psr7": "^1.7",
+        "psr/http-message": "^1.0",
+        "monolog/monolog": "~1.0||~2.0"
     },
     "autoload": {
         "psr-4": {
@@ -29,7 +40,8 @@
                 "Vinhson\\Elasticsearch\\ElasticsearchServiceProvider"
             ],
             "aliases": {
-                "SearchBuilder" : "Vinhson\\Elasticsearch\\Facades\\SearchBuilder"
+                "SearchBuilder" : "Vinhson\\Elasticsearch\\Facades\\SearchBuilder",
+                "ElasticsearchClient": "Vinhson\\Elasticsearch\\Facades\\ElasticsearchClient"
             }
         }
     },

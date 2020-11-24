@@ -8,9 +8,12 @@
 
 namespace Vinhson\Elasticsearch;
 
+use Vinhson\Elasticsearch\Traits\HasAttributeTrait;
+use Vinhson\Elasticsearch\Traits\IndicesTrait;
+
 class SearchBuilder
 {
-    use HasAttribute;
+    use HasAttributeTrait, IndicesTrait;
 
     protected $params = [
         "index" => "",
@@ -60,6 +63,32 @@ class SearchBuilder
     static public function make($index = null, $type = null, $params = [])
     {
         return new static($index, $type, $params);
+    }
+
+    /**
+     * Notes: 自定义查询参数
+     * Date: 2020/11/24 10:15
+     * @param array $client
+     * @return $this
+     */
+    public function setClient(array $client = [])
+    {
+        $this->params["client"] = $client;
+
+        return $this;
+    }
+
+    /**
+     * Notes: 忽略异常
+     * Date: 2020/11/24 10:06
+     * @param int $status 忽略错误码（多个是数组）
+     * @return $this
+     */
+    public function ignore($status = 404)
+    {
+        $this->setClient(["ignore" => $status]);
+
+        return $this;
     }
 
     /**
@@ -223,58 +252,6 @@ class SearchBuilder
     }
 
     /**
-     * Notes: Put Settings API 允许你更改索引的配置参数:
-     * Warning：只能在索引创建时或者在状态为 closed index（闭合的索引）上设置。
-     *
-     * Date: 2020/11/21 22:18
-     * @param array $params 动态 settings (@see https://blog.csdn.net/u013545439/article/details/102744233)
-     * @return $this
-     *
-     * ex：
-     *      $params = [
-     *          "number_of_replicas" => 0, // 是数据备份数，如果只有一台机器，设置为0
-     *          "refresh_interval" => 3 // 执行刷新操作的频率
-     *      ];
-     */
-    public function putSettings(array $params = [])
-    {
-        $this->params["body"]["settings"] = $params;
-
-        return $this;
-    }
-
-    /**
-     * Notes: Put Mappings API 允许你更改或增加一个索引的映射。
-     * Warning：setAttribute(["include_type_name" => true])
-     *          版本 7.0 之后不支持type导致的 (@see https://blog.csdn.net/qq_18671415/article/details/109690458)
-     *
-     * Date: 2020/11/21 23:34
-     * @param array $parrams
-     * @return $this
-     *
-     * ex：
-     *      $params = [
-     *          "_source" => [
-     *              "enabled" => true
-     *          ],
-     *          properties" => [
-     *              "name" => [
-     *                  "type" => "text"
-     *              ],
-     *              "id" => [
-     *                  "type" => "integer"
-     *              ]
-     *          ]
-     *      ];
-     */
-    public function putMapping(array $parrams = [])
-    {
-        $this->params["body"][$this->type] = $parrams;
-
-        return $this;
-    }
-
-    /**
      * Notes: 构建查询 sql
      * Date: 2020/11/17 11:41
      * @return array
@@ -283,4 +260,5 @@ class SearchBuilder
     {
         return $this->params;
     }
+
 }

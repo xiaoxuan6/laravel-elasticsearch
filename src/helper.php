@@ -12,7 +12,7 @@ if (!function_exists("es")) {
      */
     function es()
     {
-        return app("es");
+        return app("elasticsearch.connection");
     }
 }
 
@@ -33,8 +33,8 @@ if (!function_exists("search")) {
             $index = $arguments[0];
             $type = $arguments[1];
         } else {
-            $index = $index ?? config("database.elasticsearch.index", "elastic_index");
-            $type = $type ?? config("database.elasticsearch.type", "elastic_type");
+            $index = $index ?? config("elasticsearch.index", "elastic_index");
+            $type = $type ?? config("elasticsearch.type", "elastic_type");
         }
 
         $searchBuilder = \Vinhson\Elasticsearch\SearchBuilder::make($index, $type);
