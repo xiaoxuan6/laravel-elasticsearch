@@ -11,42 +11,38 @@
 composer require "james.xue/laravel-elasticsearch"
 ```
 
-## Add configuration file
-In `database.php` Add the following configuration to the file
+## Publishing configuration
+```angular2html
+php artisan vendor:publish --tag=elasticsearch
 ```
-'elasticsearch' => [
-  // Elasticsearch 支持多台服务器负载均衡，因此这里是一个数组
-  'host' => explode(',', env('ES_HOSTS', "localhost:9200")),
-  "debug" => env("ES_DEBUG", false),
-  "index" => env("ES_INDEX", "elastic_articles"),
-  "type" => env("ES_TYPE", "elastic_articles_doc"),
-],
+
+## Add env configuration 
+```
+ELASTICSEARCH_CONNECTION=
+ELASTICSEARCH_HOST=127.0.0.1
+ELASTICSEARCH_PORT=9200
+ELASTICSEARCH_INDEX=
+ELASTICSEARCH_TYPE=
 ```
 
 ## Usage
-#### search index
 ```
-$params = SearchBuilder::setParams(["bool" => ["term" => ["name" => 'laravel']]])->builder();
-or 
-$params = search()->setParams(["bool" => ["term" => ["name" => 'laravel']]])->builder();
+$params = SearchBuilder::setKey(1)
+    ->unsetBody()
+    ->builder();
+$params = search()->setKey(1)->unsetBody()->builder();
 
-es()->search($params);
-```
+ElasticsearchClient::get($params);
 
-#### create index
-```
-$article = Article::query()->inRandomOrder()->firstOrFail();
+// or
 
-$params = SearchBuilder::setKey($article->getKey())->setBody($article->toESArray())->builder();
+$params = SearchBuilder::connection("elastic1")
+    ->setKey(1)
+    ->unsetBody()
+    ->builder();
+$params = search("elastic1")->setKey(1)->unsetBody()->builder();
 
-es()->index($params);
-```
-
-#### delete index
-```
-$params = SearchBuilder::setKey($id)->unsetBody()->builder();
-
-es()->delete($params);
+ElasticsearchClient::connection("elastic1")->get($params);
 ```
 
 ## About 

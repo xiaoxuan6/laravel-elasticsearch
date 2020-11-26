@@ -9,9 +9,12 @@
 namespace Vinhson\Elasticsearch;
 
 use Illuminate\Support\ServiceProvider;
+use Vinhson\Elasticsearch\Traits\ConnectionTrait;
 
 class ElasticsearchServiceProvider extends ServiceProvider
 {
+    use ConnectionTrait;
+
     public function boot()
     {
         $this->publishes([__DIR__ . "/../config/elasticsearch.php" => config_path("elasticsearch.php")], "elasticsearch");
@@ -19,16 +22,21 @@ class ElasticsearchServiceProvider extends ServiceProvider
 
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__ . '/../config/elasticsearch.php', 'elasticsearch');
+
         $this->registerElasticsearch();
 
         $this->app->singleton('SearchBuilder', function () {
             return new SearchBuilder(
-                config("elasticsearch.index", "elastic_index"),
-                config("elasticsearch.type", "elastic_type")
+                $this->getElasticsearchIndex(),
+                $this->getElasticsearchType()
             );
         });
     }
 
+    /**
+     * Register elasticsearch service
+     */
     protected function registerElasticsearch()
     {
         $this->app->singleton('elasticsearch.factory', function () {

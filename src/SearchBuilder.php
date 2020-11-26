@@ -8,12 +8,13 @@
 
 namespace Vinhson\Elasticsearch;
 
+use Vinhson\Elasticsearch\Traits\ConnectionTrait;
 use Vinhson\Elasticsearch\Traits\HasAttributeTrait;
 use Vinhson\Elasticsearch\Traits\IndicesTrait;
 
 class SearchBuilder
 {
-    use HasAttributeTrait, IndicesTrait;
+    use HasAttributeTrait, IndicesTrait, ConnectionTrait;
 
     protected $params = [
         "index" => "",
@@ -63,6 +64,24 @@ class SearchBuilder
     static public function make($index = null, $type = null, $params = [])
     {
         return new static($index, $type, $params);
+    }
+
+    /**
+     * Retrieve or build the named connection.
+     *
+     * @param string|null $name
+     *
+     * @return SearchBuilder
+     */
+    public function connection(string $name = null)
+    {
+        if(!($name && $this->isExistsConnection($name)))
+            throw new \InvalidArgumentException("Elasticsearch connection [$name] not configured.");
+
+        $index = $this->getElasticsearchIndex($name);
+        $type = $this->getElasticsearchType($name);
+
+        return self::make($index, $type);
     }
 
     /**

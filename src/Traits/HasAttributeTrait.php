@@ -8,8 +8,13 @@
 
 namespace Vinhson\Elasticsearch\Traits;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Macroable;
+
 trait HasAttributeTrait
 {
+    use Macroable;
+
     /**
      * Notes: 设置属性
      * Date: 2020/11/21 23:43
@@ -33,7 +38,7 @@ trait HasAttributeTrait
      */
     public function unsetAttribute($attributes)
     {
-        $attributes = (array)$attributes;
+        $attributes = Arr::wrap($attributes);
 
         foreach ($attributes as $attribute) {
             if (array_key_exists($attribute, $this->params)) {
@@ -52,6 +57,6 @@ trait HasAttributeTrait
      */
     public function __get($name)
     {
-        return array_key_exists($name, $this->params) ? array_get($this->params, $name) : null;
+        return array_key_exists($name, $this->params) ? Arr::get($this->params, $name) : null;
     }
 }

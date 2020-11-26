@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * Class SearchBuilder
  *
+ * @method static \Vinhson\Elasticsearch\SearchBuilder connection(string $name = null)
  * @method static \Vinhson\Elasticsearch\SearchBuilder make($index = null, $type = null, $params = [])
  * @method static \Vinhson\Elasticsearch\SearchBuilder setClient(array $client = [])
  * @method static \Vinhson\Elasticsearch\SearchBuilder ignore(string|array $client)

@@ -9,9 +9,12 @@
 namespace Vinhson\Elasticsearch;
 
 use Illuminate\Foundation\Application;
+use Vinhson\Elasticsearch\Traits\ConnectionTrait;
 
 class Manager
 {
+    use ConnectionTrait;
+
     /**
      * The application instance.
      *
@@ -48,7 +51,7 @@ class Manager
      *
      * @param string|null $name
      *
-     * @return \Elasticsearch\Client
+     * @return \Elasticsearch\ClientBuilder
      */
     public function connection(string $name = null)
     {
@@ -59,16 +62,6 @@ class Manager
         }
 
         return $this->connections[$name];
-    }
-
-    /**
-     * Get the default connection.
-     *
-     * @return string
-     */
-    public function getDefaultConnection()
-    {
-        return $this->app['config']['elasticsearch.default'];
     }
 
     /**
@@ -130,6 +123,10 @@ class Manager
      */
     public function __call(string $method, array $parameters)
     {
+        if (method_exists($this, $method)) {
+            return call_user_func_array([$this, $method], $parameters);
+        }
+
         return call_user_func_array([$this->connection(), $method], $parameters);
     }
 }
