@@ -58,4 +58,14 @@ trait ConnectionTrait
     {
         return array_key_exists($name, config("elasticsearch.connections")) ?? false;
     }
+
+    /**
+     * Notes: 获取 is_unset_type 配置
+     * Date: 2020/11/28 19:03
+     * @return \Illuminate\Config\Repository|mixed
+     */
+    public function fetchIsUserType()
+    {
+        return config("elasticsearch.is_unset_type", false);
+    }
 }

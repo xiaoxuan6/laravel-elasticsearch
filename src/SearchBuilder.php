@@ -75,7 +75,7 @@ class SearchBuilder
      */
     public function connection(string $name = null)
     {
-        if(!($name && $this->isExistsConnection($name)))
+        if (!($name && $this->isExistsConnection($name)))
             throw new \InvalidArgumentException("Elasticsearch connection [$name] not configured.");
 
         $index = $this->getElasticsearchIndex($name);
@@ -277,6 +277,10 @@ class SearchBuilder
      */
     public function builder()
     {
+        if ($this->fetchIsUserType()) {
+            $this->unsetType();
+        }
+
         return $this->params;
     }
 
