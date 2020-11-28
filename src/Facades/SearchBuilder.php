@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Vinhson\Elasticsearch\SearchBuilder setAttribute(array $attributes = [])
  * @method static \Vinhson\Elasticsearch\SearchBuilder unsetAttribute(array|string $attributes)
  * @method static \Vinhson\Elasticsearch\SearchBuilder putSettings(array $params = [])
- * @method static \Vinhson\Elasticsearch\SearchBuilder putMapping(array $parrams = [])
+ * @method static \Vinhson\Elasticsearch\SearchBuilder putMapping(array $parrams = [], bool $force = false)
  * @method static array updateAliases(array $aliases = [])
  * @method static array builder()
  *

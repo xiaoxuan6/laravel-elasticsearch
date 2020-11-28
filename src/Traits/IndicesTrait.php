@@ -39,6 +39,7 @@ trait IndicesTrait
      *
      * Date: 2020/11/21 23:34
      * @param array $parrams
+     * @param array $force 是否修改映射
      * @return $this
      *
      * ex：
@@ -56,9 +57,26 @@ trait IndicesTrait
      *          ]
      *      ];
      */
-    public function putMapping(array $parrams = [])
+    public function putMapping(array $parrams = [], $force = false)
     {
-        $this->params["body"][$this->type] = $parrams;
+        if (!$force) {
+            $this->params["body"]["mappings"] = $parrams;
+        } else {
+            $this->params["body"] = $parrams;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Notes: 创建索引添加别名
+     * Date: 2020/11/28 12:34
+     * @param array $aliases
+     * @return $this
+     */
+    public function setAliases(array $aliases = [])
+    {
+        $this->params["body"]["aliases"] = $aliases;
 
         return $this;
     }

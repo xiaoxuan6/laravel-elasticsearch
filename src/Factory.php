@@ -11,8 +11,6 @@ namespace Vinhson\Elasticsearch;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use Illuminate\Support\Arr;
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
 
 class Factory
 {

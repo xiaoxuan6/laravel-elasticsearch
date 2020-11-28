@@ -23,8 +23,8 @@ trait HasAttributeTrait
      */
     public function setAttribute(array $attributes = [])
     {
-        foreach ($attributes as $key => $attribute) {
-            $this->params[$key] = $attribute;
+        foreach ($attributes as $key => $value) {
+            Arr::set($this->params, $key, $value);
         }
 
         return $this;
@@ -57,6 +57,6 @@ trait HasAttributeTrait
      */
     public function __get($name)
     {
-        return array_key_exists($name, $this->params) ? Arr::get($this->params, $name) : null;
+        return Arr::get($this->params, $name, null);
     }
 }
