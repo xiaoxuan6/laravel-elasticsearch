@@ -88,11 +88,12 @@ trait IndicesTrait
      * @return mixed
      *
      * ex：
-     *      ["index" => "my_index", "alias" => "my_index_alias"]
+     *      ["add" => ["index" => "my_index", "alias" => "my_index_alias"]]
+     *      ["remove" => ["index" => "my_index", "alias" => "my_index_alias"]]
      */
     public function updateAliases(array $aliases = [])
     {
-        $this->setBody(["actions" => [["add" => $aliases]]])->unsetType();
+        $this->setBody(["actions" => $aliases])->unsetType();
 
         unset($this->params["index"]);
 
