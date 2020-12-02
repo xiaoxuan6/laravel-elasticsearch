@@ -245,12 +245,12 @@ class SearchBuilder
      * @param array $aggregations
      * @return $this
      */
-//    public function setAggregations(array $aggregations = [])
-//    {
-//        $this->params["body"]["aggregations"] = $aggregations;
-//
-//        return $this;
-//    }
+    public function setAggregations(array $aggregations = [])
+    {
+        $this->params["body"]["aggs"] = $aggregations;
+
+        return $this;
+    }
 
     /**
      * Notes: 高亮
