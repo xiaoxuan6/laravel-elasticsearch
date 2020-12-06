@@ -223,6 +223,21 @@ class SearchBuilder
 
         return $this;
     }
+    
+    /**
+     * Notes: 设置返回文档个数，返回记录数设置为 0 来提高查询速度
+     * Warning: size 和 paginate 同时存在，限制条数以 size 设置为准
+     *
+     * Date: 2020/12/6 20:08
+     * @param int $size
+     * @return $this
+     */
+    public function size($size = 0)
+    {
+        $this->params['size'] = $size;
+
+        return $this;
+    }
 
     /**
      * Notes: 排序
