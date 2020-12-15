@@ -40,10 +40,9 @@ trait HasAttributeTrait
     {
         $attributes = Arr::wrap($attributes);
 
-        foreach ($attributes as $attribute) {
-            if (array_key_exists($attribute, $this->params)) {
-                unset($this->params[$attribute]);
-            }
+        foreach ($attributes as $key => $attribute) {
+            $data = is_int($key) ? [$attribute => null] : [$key => $attribute];
+            $this->setAttribute($data);
         }
 
         return self::make(null, null, $this->params);
