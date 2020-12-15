@@ -167,7 +167,7 @@ class SearchBuilder
      */
     public function setBody(array $body = [])
     {
-        $this->params["body"] = $body;
+        $this->params["body"] = $body + $this->params["body"];
 
         return $this;
     }
