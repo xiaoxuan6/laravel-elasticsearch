@@ -12,7 +12,7 @@ if (!function_exists("es")) {
      */
     function es()
     {
-        return app("elasticsearch.connection");
+        return app("elasticsearch");
     }
 }
 

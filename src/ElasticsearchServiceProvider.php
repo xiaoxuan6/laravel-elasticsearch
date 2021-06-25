@@ -13,7 +13,7 @@ use Vinhson\Elasticsearch\Traits\ConnectionTrait;
 
 class ElasticsearchServiceProvider extends ServiceProvider
 {
-    use ConnectionTrait;
+    protected $defer = true;
 
     public function boot()
     {
@@ -27,10 +27,7 @@ class ElasticsearchServiceProvider extends ServiceProvider
         $this->registerElasticsearch();
 
         $this->app->singleton('SearchBuilder', function () {
-            return new SearchBuilder(
-                $this->getElasticsearchIndex(),
-                $this->getElasticsearchType()
-            );
+            return new SearchBuilder();
         });
     }
 
@@ -47,9 +44,6 @@ class ElasticsearchServiceProvider extends ServiceProvider
             return new Manager($app, $app['elasticsearch.factory']);
         });
 
-        $this->app->bind("elasticsearch.connection", function ($app) {
-            return $app['elasticsearch']->connection();
-        });
     }
 
     /**
@@ -59,6 +53,6 @@ class ElasticsearchServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ["SearchBuilder", "elasticsearch.connection"];
+        return ["SearchBuilder", "elasticsearch"];
     }
 }

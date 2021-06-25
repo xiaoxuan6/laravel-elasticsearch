@@ -13,17 +13,13 @@ use Illuminate\Support\Facades\Facade;
 /**
  * Class ElasticsearchClient
  *
- * @method static \Vinhson\Elasticsearch\Manager setDefaultConnection(string $connection)
- * @method static string getDefaultConnection()
- * @method static array getConnections()
- *
  * @see \Vinhson\Elasticsearch\Manager
  */
 class ElasticsearchClient extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return "elasticsearch.connection";
+        return "elasticsearch";
     }
 
     /**
