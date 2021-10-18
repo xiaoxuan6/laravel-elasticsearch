@@ -9,26 +9,27 @@
 namespace Vinhson\Elasticsearch;
 
 use Vinhson\Elasticsearch\Traits\ConnectionTrait;
+use Vinhson\Elasticsearch\Traits\DocTrait;
 use Vinhson\Elasticsearch\Traits\HasAttributeTrait;
 use Vinhson\Elasticsearch\Traits\IndicesTrait;
 
 class SearchBuilder
 {
-    use HasAttributeTrait, IndicesTrait, ConnectionTrait;
+    use HasAttributeTrait, IndicesTrait, ConnectionTrait, DocTrait;
 
     protected $params = [
-        "index" => "",
-        "type"  => "",
-        "body"  => []
+        'index' => '',
+        'type' => '',
+        'body' => []
     ];
 
     /**
      * SearchBuilder constructor.
      * @param null $index
      * @param null $type
-     * @param $params
+     * @param array $params
      */
-    public function __construct($index = null, $type = null, $params = [])
+    public function __construct($index = null, $type = null, array $params = [])
     {
         $this->init($index, $type);
 
@@ -49,8 +50,8 @@ class SearchBuilder
             list($index, $type) = $index;
         }
 
-        $this->params["index"] = $index ?? "elasticsearch_index";
-        $this->params["type"] = $type ?? "elasticsearch_type";
+        $this->params['index'] = $index ?? 'elasticsearch_index';
+        $this->params['type'] = $type ?? 'elasticsearch_type';
     }
 
     /**
@@ -61,7 +62,7 @@ class SearchBuilder
      * @param array $params
      * @return SearchBuilder
      */
-    static public function make($index = null, $type = null, $params = [])
+    static public function make($index = null, $type = null, array $params = []): SearchBuilder
     {
         return new static($index, $type, $params);
     }
@@ -73,7 +74,7 @@ class SearchBuilder
      *
      * @return SearchBuilder
      */
-    public function connection(string $name = null)
+    public function connection(string $name = null): SearchBuilder
     {
         if (!($name && $this->isExistsConnection($name)))
             throw new \InvalidArgumentException("Elasticsearch connection [$name] not configured.");
@@ -85,14 +86,24 @@ class SearchBuilder
     }
 
     /**
+     * @return array
+     */
+    public function explain(): array
+    {
+        $this->params['explain'] = true;
+
+        return $this->builder();
+    }
+
+    /**
      * Notes: 自定义查询参数
      * Date: 2020/11/24 10:15
      * @param array $client
      * @return $this
      */
-    public function setClient(array $client = [])
+    public function setClient(array $client = []): SearchBuilder
     {
-        $this->params["client"] = $client;
+        $this->params['client'] = $client;
 
         return $this;
     }
@@ -103,9 +114,9 @@ class SearchBuilder
      * @param int $status 忽略错误码（多个是数组）
      * @return $this
      */
-    public function ignore($status = 404)
+    public function ignore(int $status = 404): SearchBuilder
     {
-        $this->setClient(["ignore" => $status]);
+        $this->setClient(['ignore' => $status]);
 
         return $this;
     }
@@ -116,9 +127,9 @@ class SearchBuilder
      * @param $index
      * @return $this
      */
-    public function setIndex($index)
+    public function setIndex($index): SearchBuilder
     {
-        $this->params["index"] = $index;
+        $this->params['index'] = $index;
 
         return $this;
     }
@@ -129,9 +140,9 @@ class SearchBuilder
      * @param bool $force
      * @return mixed
      */
-    public function getIndex($force = false)
+    public function getIndex(bool $force = false)
     {
-        return $force ? ["index" => $this->index] : $this->index;
+        return $force ? ['index' => $this->index] : $this->index;
     }
 
     /**
@@ -141,7 +152,7 @@ class SearchBuilder
      */
     public function unsetType(): self
     {
-        unset($this->params["type"]);
+        unset($this->params['type']);
 
         return self::make(null, null, $this->params);
     }
@@ -152,9 +163,9 @@ class SearchBuilder
      * @param $id
      * @return $this
      */
-    public function setKey($id)
+    public function setKey($id): SearchBuilder
     {
-        $this->params["id"] = $id;
+        $this->params['id'] = $id;
 
         return $this;
     }
@@ -165,9 +176,9 @@ class SearchBuilder
      * @param array $body
      * @return $this
      */
-    public function setBody(array $body = [])
+    public function setBody(array $body = []): SearchBuilder
     {
-        $this->params["body"] = $body + $this->params["body"];
+        $this->params['body'] = $body + $this->params['body'];
 
         return $this;
     }
@@ -175,11 +186,11 @@ class SearchBuilder
     /**
      * Notes: 删除 Body 属性
      * Date: 2020/11/17 14:12
-     * @return array
+     * @return SearchBuilder
      */
     public function unsetBody(): self
     {
-        unset($this->params["body"]);
+        unset($this->params['body']);
 
         return self::make(null, null, $this->params);
     }
@@ -187,12 +198,12 @@ class SearchBuilder
     /**
      * Notes: 设置获取文档显示的字段
      * Date: 2020/11/17 15:07
-     * @param $source 获取字段，多个用','隔开或数组
+     * @param null $source 获取字段，多个用','隔开或数组
      * @return $this
      */
-    public function setSource($source = null)
+    public function setSource($source = null): SearchBuilder
     {
-        $this->params["_source"] = $source;
+        $this->params['_source'] = $source;
 
         return $this;
     }
@@ -203,9 +214,9 @@ class SearchBuilder
      * @param array $params
      * @return $this
      */
-    public function setParams(array $params = [])
+    public function setParams(array $params = []): SearchBuilder
     {
-        $this->params["body"]["query"] = $params;
+        $this->params['body']['query'] = $params;
 
         return $this;
     }
@@ -216,25 +227,10 @@ class SearchBuilder
      * @param int $pageLime 每页显示个数
      * @return $this
      */
-    public function paginate($page = 1, $pageLime = 10)
+    public function paginate(int $page = 1, int $pageLime = 10): SearchBuilder
     {
-        $this->params["body"]['from'] = ($page - 1) * $pageLime;
-        $this->params["body"]['size'] = $pageLime;
-
-        return $this;
-    }
-    
-    /**
-     * Notes: 设置返回文档个数，返回记录数设置为 0 来提高查询速度
-     * Warning: size 和 paginate 同时存在，限制条数以 size 设置为准
-     *
-     * Date: 2020/12/6 20:08
-     * @param int $size
-     * @return $this
-     */
-    public function size($size = 0)
-    {
-        $this->params['size'] = $size;
+        $this->params['body']['from'] = ($page - 1) * $pageLime;
+        $this->params['body']['size'] = $pageLime;
 
         return $this;
     }
@@ -245,10 +241,10 @@ class SearchBuilder
      * @param array $orderBy
      * @return $this
      */
-    public function orderBy(array $orderBy = [])
+    public function orderBy(array $orderBy = []): SearchBuilder
     {
         foreach ($orderBy as $key => $item) {
-            $this->params['body']["sort"][] = [$key => $item];
+            $this->params['body']['sort'][] = [$key => $item];
         }
 
         return $this;
@@ -260,12 +256,12 @@ class SearchBuilder
      * @param array $aggregations
      * @return $this
      */
-    public function setAggregations(array $aggregations = [])
-    {
-        $this->params["body"]["aggs"] = $aggregations;
-
-        return $this;
-    }
+//    public function setAggregations(array $aggregations = [])
+//    {
+//        $this->params["body"]["aggregations"] = $aggregations;
+//
+//        return $this;
+//    }
 
     /**
      * Notes: 高亮
@@ -274,12 +270,12 @@ class SearchBuilder
      * @param bool $force
      * @return $this
      */
-    public function highlight($fields = [], $force = false)
+    public function highlight(array $fields = [], bool $force = false): SearchBuilder
     {
         if ($force) {
-            $this->params["body"]["highlight"] = $fields;
+            $this->params['body']['highlight'] = $fields;
         } else {
-            $this->params["body"]["highlight"]["fields"] = $fields;
+            $this->params['body']['highlight']['fields'] = $fields;
         }
 
         return $this;
@@ -290,7 +286,7 @@ class SearchBuilder
      * Date: 2020/11/17 11:41
      * @return array
      */
-    public function builder()
+    public function builder(): array
     {
         if ($this->fetchIsUserType()) {
             $this->unsetType();

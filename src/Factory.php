@@ -14,13 +14,14 @@ use Illuminate\Support\Arr;
 
 class Factory
 {
-      /**
+    /**
      * Make the Elasticsearch client for the given named configuration, or
      * the default client.
      *
      * @param array $config
      *
      * @return \Elasticsearch\Client
+     * @throws \Exception
      */
     public function make(array $config): Client
     {
@@ -33,6 +34,7 @@ class Factory
      * @param array $config
      *
      * @return \Elasticsearch\Client
+     * @throws \Exception
      */
     protected function client(array $config): Client
     {
@@ -52,7 +54,7 @@ class Factory
      * @return ClientBuilder
      * @throws \Exception
      */
-    protected function setLog(ClientBuilder $clientBuilder)
+    protected function setLog(ClientBuilder $clientBuilder): ClientBuilder
     {
         $clientBuilder->setLogger(app('log')->driver());
 

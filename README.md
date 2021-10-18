@@ -26,7 +26,7 @@ ELASTICSEARCH_TYPE=
 ```
 
 ## Usage
-```
+``` php
 $params = SearchBuilder::setKey(1)
     ->unsetBody()
     ->builder();

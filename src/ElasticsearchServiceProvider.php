@@ -17,7 +17,7 @@ class ElasticsearchServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->publishes([__DIR__ . "/../config/elasticsearch.php" => config_path("elasticsearch.php")], "elasticsearch");
+        $this->publishes([__DIR__ . '/../config/elasticsearch.php' => config_path('elasticsearch.php')], 'elasticsearch');
     }
 
     public function register()
@@ -47,7 +47,7 @@ class ElasticsearchServiceProvider extends ServiceProvider
             return new Manager($app, $app['elasticsearch.factory']);
         });
 
-        $this->app->bind("elasticsearch.connection", function ($app) {
+        $this->app->bind('elasticsearch.connection', function ($app) {
             return $app['elasticsearch']->connection();
         });
     }
@@ -57,8 +57,8 @@ class ElasticsearchServiceProvider extends ServiceProvider
      *
      * @return array
      */
-    public function provides()
+    public function provides(): array
     {
-        return ["SearchBuilder", "elasticsearch.connection"];
+        return ['SearchBuilder', 'elasticsearch.connection'];
     }
 }

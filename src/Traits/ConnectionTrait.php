@@ -13,11 +13,12 @@ trait ConnectionTrait
     /**
      * Get the default connection.
      *
+     * @param null $app
      * @return string
      */
-    public function getDefaultConnection($app = null)
+    public function getDefaultConnection($app = null): string
     {
-        return $app ? $app['config']['elasticsearch.default'] : config("elasticsearch.default");
+        return $app ? $app['config']['elasticsearch.default'] : config('elasticsearch.default');
     }
 
     /**
@@ -54,9 +55,9 @@ trait ConnectionTrait
      * @param null $name
      * @return bool
      */
-    public function isExistsConnection($name = null)
+    public function isExistsConnection($name = null): bool
     {
-        return array_key_exists($name, config("elasticsearch.connections")) ?? false;
+        return array_key_exists($name, config('elasticsearch.connections')) ?? false;
     }
 
     /**
@@ -66,6 +67,6 @@ trait ConnectionTrait
      */
     public function fetchIsUserType()
     {
-        return config("elasticsearch.is_unset_type", false);
+        return config('elasticsearch.is_unset_type', false);
     }
 }

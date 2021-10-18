@@ -26,7 +26,15 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Vinhson\Elasticsearch\SearchBuilder unsetAttribute(array|string $attributes)
  * @method static \Vinhson\Elasticsearch\SearchBuilder putSettings(array $params = [])
  * @method static \Vinhson\Elasticsearch\SearchBuilder putMapping(array $parrams = [], bool $force = false)
- * @method static array updateAliases(array $aliases = [])
+ *
+ * @method static array count(array $params = [])
+ * @method static array get($id)
+ * @method static array delete($id)
+ * @method static array deleteByQuery(array $params = [])
+ * @method static array deleteAlias(string $alias, $index = null)
+ * @method static array existsAlias(string $alias, $index = null)
+ * @method static array putAlias(string $alias, $index = null)
+ * @method static array updateAliases(array $actions = [])
  * @method static array builder()
  *
  * @see \Vinhson\Elasticsearch\SearchBuilder

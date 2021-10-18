@@ -52,8 +52,9 @@ class Manager
      * @param string|null $name
      *
      * @return \Elasticsearch\ClientBuilder
+     * @throws \Exception
      */
-    public function connection(string $name = null)
+    public function connection(string $name = null): \Elasticsearch\ClientBuilder
     {
         $name = $name ?: $this->getDefaultConnection();
 
@@ -78,8 +79,10 @@ class Manager
      * Make a new connection.
      *
      * @param string $name
+     * @return \Elasticsearch\Client
+     * @throws \Exception
      */
-    protected function makeConnection(string $name)
+    protected function makeConnection(string $name): \Elasticsearch\Client
     {
         return $this->factory->make($this->getConfig($name));
     }
@@ -87,10 +90,9 @@ class Manager
     /**
      * Get the configuration for a named connection.
      *
-     * @param $name
+     * @param string $name
      *
      * @return mixed
-     * @throws \InvalidArgumentException
      */
     protected function getConfig(string $name)
     {
@@ -116,8 +118,8 @@ class Manager
     /**
      * Dynamically pass methods to the default connection.
      *
-     * @param  string $method
-     * @param  array $parameters
+     * @param string $method
+     * @param array $parameters
      *
      * @return mixed
      */

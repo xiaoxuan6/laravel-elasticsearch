@@ -6,23 +6,23 @@
  * Time: 14:04
  */
 
-if (!function_exists("es")) {
+if (!function_exists('es')) {
     /**
      * @return \Elasticsearch\ClientBuilder
      */
     function es()
     {
-        return app("elasticsearch.connection");
+        return app('elasticsearch.connection');
     }
 }
 
-if (!function_exists("search")) {
+if (!function_exists('search')) {
     /**
      * @param null $index
      * @param null $type
      * @return \Vinhson\Elasticsearch\SearchBuilder
      */
-    function search($index = null, $type = null)
+    function search($index = null, $type = null): \Vinhson\Elasticsearch\SearchBuilder
     {
         $defaultConnection = null;
 
@@ -37,7 +37,7 @@ if (!function_exists("search")) {
         } elseif ($index && !$type && !is_array($index)) {
             $defaultConnection = $index;
         } else {
-            $defaultConnection = config("elasticsearch.default");
+            $defaultConnection = config('elasticsearch.default');
         }
 
         if (!$defaultConnection) {

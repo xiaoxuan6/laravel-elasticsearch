@@ -10,6 +10,7 @@ namespace Vinhson\Elasticsearch\Traits;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Macroable;
+use Vinhson\Elasticsearch\SearchBuilder;
 
 trait HasAttributeTrait
 {
@@ -36,13 +37,14 @@ trait HasAttributeTrait
      * @param $attributes
      * @return SearchBuilder
      */
-    public function unsetAttribute($attributes)
+    public function unsetAttribute($attributes): SearchBuilder
     {
         $attributes = Arr::wrap($attributes);
 
-        foreach ($attributes as $key => $attribute) {
-            $data = is_int($key) ? [$attribute => null] : [$key => $attribute];
-            $this->setAttribute($data);
+        foreach ($attributes as $attribute) {
+            if (array_key_exists($attribute, $this->params)) {
+                unset($this->params[$attribute]);
+            }
         }
 
         return self::make(null, null, $this->params);

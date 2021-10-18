@@ -8,7 +8,6 @@
 
 namespace Vinhson\Elasticsearch\Traits;
 
-
 trait IndicesTrait
 {
     /**
@@ -21,48 +20,48 @@ trait IndicesTrait
      *
      * ex：
      *      $params = [
-     *          "number_of_replicas" => 0, // 是数据备份数，如果只有一台机器，设置为0
-     *          "refresh_interval" => 3 // 执行刷新操作的频率
+     *          'number_of_replicas' => 0, // 是数据备份数，如果只有一台机器，设置为0
+     *          'refresh_interval' => 3 // 执行刷新操作的频率
      *      ];
      */
     public function putSettings(array $params = [])
     {
-        $this->params["body"]["settings"] = $params;
+        $this->params['body']['settings'] = $params;
 
         return $this;
     }
 
     /**
      * Notes: Put Mappings API 允许你更改或增加一个索引的映射。
-     * Warning：setAttribute(["include_type_name" => true])
+     * Warning：setAttribute(['include_type_name' => true])
      *          版本 7.0 之后不支持type导致的 (@see https://blog.csdn.net/qq_18671415/article/details/109690458)
      *
      * Date: 2020/11/21 23:34
-     * @param array $parrams
-     * @param array $force 是否修改映射
+     * @param array $params
+     * @param bool $force 是否修改映射
      * @return $this
      *
      * ex：
      *      $params = [
-     *          "_source" => [
-     *              "enabled" => true
+     *          '_source' => [
+     *              'enabled' => true
      *          ],
-     *          properties" => [
-     *              "name" => [
-     *                  "type" => "text"
+     *          properties' => [
+     *              'name' => [
+     *                  'type' => 'text'
      *              ],
-     *              "id" => [
-     *                  "type" => "integer"
+     *              'id' => [
+     *                  'type' => 'integer'
      *              ]
      *          ]
      *      ];
      */
-    public function putMapping(array $parrams = [], $force = false)
+    public function putMapping(array $params = [], $force = false)
     {
         if (!$force) {
-            $this->params["body"]["mappings"] = $parrams;
+            $this->params['body']['mappings'] = $params;
         } else {
-            $this->params["body"] = $parrams;
+            $this->params['body'] = $params;
         }
 
         return $this;
@@ -71,31 +70,76 @@ trait IndicesTrait
     /**
      * Notes: 创建索引添加别名
      * Date: 2020/11/28 12:34
-     * @param array $aliases
+     * @param array|string $aliases
      * @return $this
      */
-    public function setAliases(array $aliases = [])
+    public function setAliases($aliases)
     {
-        $this->params["body"]["aliases"] = $aliases;
+        $aliases = is_array($aliases) ? $aliases : [$aliases => new \stdClass()];
+
+        $this->params['body']['aliases'] = $aliases;
 
         return $this;
     }
 
     /**
-     * Notes: 现有的索引添加别名
-     * Date: 2020/11/24 11:00
-     * @param $aliases
-     * @return mixed
+     * 对现有的索引添加别名
+     *
+     * @param string $alias
+     * @param null $index
+     * @return array
+     */
+    public function deleteAlias(string $alias, $index = null): array
+    {
+        return $this->existsAlias($alias, $index);
+    }
+
+    /**
+     * 索引别名是否存在
+     *
+     * @param string $alias
+     * @param null $index
+     * @return array
+     */
+    public function existsAlias(string $alias, $index = null): array
+    {
+        $this->setAttribute(['name' => $alias])->unsetBody();
+
+        if ($index) {
+            return $this->setIndex($index)->builder();
+        }
+
+        return $this->builder();
+    }
+
+    /**
+     * 对现有的索引添加别名
+     *
+     * @param string $alias
+     * @param null $index
+     * @return array
+     */
+    public function putAlias(string $alias, $index = null): array
+    {
+        return $this->existsAlias($alias, $index);
+    }
+
+    /**
+     * 对现有的索引别名操作
+     * @param array $actions
+     * @return array
      *
      * ex：
-     *      ["add" => ["index" => "my_index", "alias" => "my_index_alias"]]
-     *      ["remove" => ["index" => "my_index", "alias" => "my_index_alias"]]
+     * 'actions' => [
+     * ['remove' => ['index' => 'my_index', 'alias' => 'my_index_alias']],
+     * ['add' => ['index' => 'my_index', 'alias' => 'my_index_alias']]
+     * ]
      */
-    public function updateAliases(array $aliases = [])
+    public function updateAliases(array $actions = []): array
     {
-        $this->setBody(["actions" => $aliases])->unsetType();
+        $this->setBody($actions)->unsetType();
 
-        unset($this->params["index"]);
+        unset($this->params['index']);
 
         return self::make(null, null, $this->params)->builder();
     }
