@@ -58,4 +58,60 @@ trait DocTrait
     {
         return $this->setParams($params)->builder();
     }
+
+    /**
+     * 多字段排序
+     *
+     * @param array $column
+     * @return $this
+     */
+    public function orderByAscOrDesc(array $column = [])
+    {
+        foreach ($column as $key => $value) {
+            $this->orderBy([$key => ['order' => $value]]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * 根据字段值设置排序
+     *
+     * @param $column
+     * @param $direction
+     */
+    protected function orderByCloumn($column, $direction)
+    {
+        $column = is_array($column) ? $column : [$column];
+
+        foreach ($column as $value) {
+            $this->orderBy([$value => ['order' => $direction]]);
+        }
+    }
+
+    /**
+     * 根据字段升序排序
+     *
+     * @param $column
+     * @return $this
+     */
+    public function orderByAsc($column)
+    {
+        $this->orderByCloumn($column, 'asc');
+
+        return $this;
+    }
+
+    /**
+     * 根据字段降序排序
+     *
+     * @param $column
+     * @return $this
+     */
+    public function orderByDesc($column)
+    {
+        $this->orderByCloumn($column, 'desc');
+
+        return $this;
+    }
 }

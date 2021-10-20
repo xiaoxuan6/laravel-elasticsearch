@@ -27,6 +27,9 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Vinhson\Elasticsearch\SearchBuilder putSettings(array $params = [])
  * @method static \Vinhson\Elasticsearch\SearchBuilder putMapping(array $parrams = [], bool $force = false)
  *
+ * @method static \Vinhson\Elasticsearch\SearchBuilder template()
+ * @method static \Vinhson\Elasticsearch\Indices\PutIndexTemplate putIndexTemplate()
+ *
  * @method static array count(array $params = [])
  * @method static array get($id)
  * @method static array delete($id)

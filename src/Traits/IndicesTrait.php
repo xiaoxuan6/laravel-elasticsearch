@@ -11,6 +11,62 @@ namespace Vinhson\Elasticsearch\Traits;
 trait IndicesTrait
 {
     /**
+     * 字符过滤器
+     *
+     * @param array $char_filter
+     * @return $this
+     */
+    public function charFilter(array $char_filter = [])
+    {
+        $this->params['body']['settings']['analysis']['char_filter'] = $char_filter;
+
+        return $this;
+    }
+
+    /**
+     * 词单元过滤器
+     *
+     * @param array $filter
+     * @return $this
+     */
+    public function filter(array $filter = [])
+    {
+        $this->params['body']['settings']['analysis']['filter'] = $filter;
+
+        return $this;
+    }
+
+    /**
+     * 分词器
+     * @param array $analyzer
+     * @return $this
+     */
+    public function analyzer(array $analyzer = [])
+    {
+        $this->params['body']['settings']['analysis']['analyzer'] = $analyzer;
+
+        return $this;
+    }
+
+    /**
+     * 分词器集合
+     * @param array $char_filter
+     * @param array $filter
+     * @param array $analyzer
+     * @return $this
+     */
+    public function analysis(array $char_filter = [], array $filter = [], array $analyzer = [])
+    {
+        $this->params['body']['settings']['analysis'] = [
+            'char_filter' => $char_filter,
+            'filter' => $filter,
+            'analyzer' => $analyzer
+        ];
+
+        return $this;
+    }
+
+    /**
      * Notes: Put Settings API 允许你更改索引的配置参数:
      * Warning：只能在索引创建时或者在状态为 closed index（闭合的索引）上设置。
      *
@@ -26,7 +82,7 @@ trait IndicesTrait
      */
     public function putSettings(array $params = [])
     {
-        $this->params['body']['settings'] = $params;
+        $this->params['body']['settings'] = array_merge($params, (array_key_exists('settings', $this->params['body']) ? $this->params['body']['settings'] : []));
 
         return $this;
     }

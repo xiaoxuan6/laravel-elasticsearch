@@ -45,7 +45,7 @@ class Factory
             $clientBuilder = $this->setLog($clientBuilder);
         }
 
-        return $clientBuilder->build();
+        return $clientBuilder->setRetries($config['retries'])->build();
     }
 
     /**

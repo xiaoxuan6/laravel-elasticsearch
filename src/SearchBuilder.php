@@ -12,10 +12,15 @@ use Vinhson\Elasticsearch\Traits\ConnectionTrait;
 use Vinhson\Elasticsearch\Traits\DocTrait;
 use Vinhson\Elasticsearch\Traits\HasAttributeTrait;
 use Vinhson\Elasticsearch\Traits\IndicesTrait;
+use Vinhson\Elasticsearch\Traits\TemplateTrait;
 
 class SearchBuilder
 {
-    use HasAttributeTrait, IndicesTrait, ConnectionTrait, DocTrait;
+    use ConnectionTrait,
+        DocTrait,
+        HasAttributeTrait,
+        IndicesTrait,
+        TemplateTrait;
 
     protected $params = [
         'index' => '',

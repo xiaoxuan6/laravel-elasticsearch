@@ -51,10 +51,10 @@ class Manager
      *
      * @param string|null $name
      *
-     * @return \Elasticsearch\ClientBuilder
+     * @return \Elasticsearch\Client
      * @throws \Exception
      */
-    public function connection(string $name = null): \Elasticsearch\ClientBuilder
+    public function connection(string $name = null): \Elasticsearch\Client
     {
         $name = $name ?: $this->getDefaultConnection();
 
