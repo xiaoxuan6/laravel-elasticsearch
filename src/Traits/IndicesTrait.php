@@ -8,15 +8,27 @@
 
 namespace Vinhson\Elasticsearch\Traits;
 
+use Vinhson\Elasticsearch\SearchBuilder;
+
 trait IndicesTrait
 {
+    /**
+     * 查看字符串分词
+     * @param array $body
+     * @return array[]
+     */
+    public function analyze(array $body = []): array
+    {
+        return $this->getIndex(true) + ['body' => $body];
+    }
+
     /**
      * 字符过滤器
      *
      * @param array $char_filter
-     * @return $this
+     * @return SearchBuilder
      */
-    public function charFilter(array $char_filter = [])
+    public function charFilter(array $char_filter = []): SearchBuilder
     {
         $this->params['body']['settings']['analysis']['char_filter'] = $char_filter;
 
@@ -27,9 +39,9 @@ trait IndicesTrait
      * 词单元过滤器
      *
      * @param array $filter
-     * @return $this
+     * @return SearchBuilder
      */
-    public function filter(array $filter = [])
+    public function filter(array $filter = []): SearchBuilder
     {
         $this->params['body']['settings']['analysis']['filter'] = $filter;
 
@@ -39,9 +51,9 @@ trait IndicesTrait
     /**
      * 分词器
      * @param array $analyzer
-     * @return $this
+     * @return SearchBuilder
      */
-    public function analyzer(array $analyzer = [])
+    public function analyzer(array $analyzer = []): SearchBuilder
     {
         $this->params['body']['settings']['analysis']['analyzer'] = $analyzer;
 
@@ -53,9 +65,9 @@ trait IndicesTrait
      * @param array $char_filter
      * @param array $filter
      * @param array $analyzer
-     * @return $this
+     * @return SearchBuilder
      */
-    public function analysis(array $char_filter = [], array $filter = [], array $analyzer = [])
+    public function analysis(array $char_filter = [], array $filter = [], array $analyzer = []): SearchBuilder
     {
         $this->params['body']['settings']['analysis'] = [
             'char_filter' => $char_filter,
@@ -72,7 +84,7 @@ trait IndicesTrait
      *
      * Date: 2020/11/21 22:18
      * @param array $params 动态 settings (@see https://blog.csdn.net/u013545439/article/details/102744233)
-     * @return $this
+     * @return SearchBuilder
      *
      * ex：
      *      $params = [
@@ -80,7 +92,7 @@ trait IndicesTrait
      *          'refresh_interval' => 3 // 执行刷新操作的频率
      *      ];
      */
-    public function putSettings(array $params = [])
+    public function putSettings(array $params = []): SearchBuilder
     {
         $this->params['body']['settings'] = array_merge($params, (array_key_exists('settings', $this->params['body']) ? $this->params['body']['settings'] : []));
 
@@ -95,7 +107,7 @@ trait IndicesTrait
      * Date: 2020/11/21 23:34
      * @param array $params
      * @param bool $force 是否修改映射
-     * @return $this
+     * @return SearchBuilder
      *
      * ex：
      *      $params = [
@@ -112,7 +124,7 @@ trait IndicesTrait
      *          ]
      *      ];
      */
-    public function putMapping(array $params = [], $force = false)
+    public function putMapping(array $params = [], $force = false): SearchBuilder
     {
         if (!$force) {
             $this->params['body']['mappings'] = $params;
@@ -127,9 +139,9 @@ trait IndicesTrait
      * Notes: 创建索引添加别名
      * Date: 2020/11/28 12:34
      * @param array|string $aliases
-     * @return $this
+     * @return SearchBuilder
      */
-    public function setAliases($aliases)
+    public function setAliases($aliases): SearchBuilder
     {
         $aliases = is_array($aliases) ? $aliases : [$aliases => new \stdClass()];
 
