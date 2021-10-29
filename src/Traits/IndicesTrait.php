@@ -49,6 +49,19 @@ trait IndicesTrait
     }
 
     /**
+     * Token 过滤器
+     *
+     * @param array $tokenizer
+     * @return SearchBuilder
+     */
+    public function tokenizer(array $tokenizer = []): SearchBuilder
+    {
+        $this->params['body']['settings']['analysis']['tokenizer'] = $tokenizer;
+
+        return $this;
+    }
+
+    /**
      * 分词器
      * @param array $analyzer
      * @return SearchBuilder
@@ -64,16 +77,18 @@ trait IndicesTrait
      * 分词器集合
      * @param array $char_filter
      * @param array $filter
+     * @param array $tokenizer
      * @param array $analyzer
      * @return SearchBuilder
      */
-    public function analysis(array $char_filter = [], array $filter = [], array $analyzer = []): SearchBuilder
+    public function analysis(array $char_filter = [], array $filter = [], array $tokenizer = [], array $analyzer = []): SearchBuilder
     {
-        $this->params['body']['settings']['analysis'] = [
+        $this->params['body']['settings']['analysis'] = array_filter([
             'char_filter' => $char_filter,
             'filter' => $filter,
+            'tokenizer' => $tokenizer,
             'analyzer' => $analyzer
-        ];
+        ]);
 
         return $this;
     }

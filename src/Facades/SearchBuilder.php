@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Vinhson\Elasticsearch\SearchBuilder unsetBody()
  * @method static \Vinhson\Elasticsearch\SearchBuilder setSource(string $source = null)
  * @method static \Vinhson\Elasticsearch\SearchBuilder setParams(array $params = [])
+ * @method static \Vinhson\Elasticsearch\SearchBuilder size(int $size = 10)
  * @method static \Vinhson\Elasticsearch\SearchBuilder paginate(int $page = 1, int $pageLime = 10)
  * @method static \Vinhson\Elasticsearch\SearchBuilder orderBy(array $orderBy = [])
  * @method static \Vinhson\Elasticsearch\SearchBuilder highlight(array $fields = [], bool $force = false)

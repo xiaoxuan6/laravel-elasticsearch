@@ -203,10 +203,10 @@ class SearchBuilder
     /**
      * Notes: 设置获取文档显示的字段
      * Date: 2020/11/17 15:07
-     * @param null $source 获取字段，多个用','隔开或数组
+     * @param array $source
      * @return $this
      */
-    public function setSource($source = null): SearchBuilder
+    public function setSource(array $source = []): SearchBuilder
     {
         $this->params['_source'] = $source;
 
@@ -222,6 +222,18 @@ class SearchBuilder
     public function setParams(array $params = []): SearchBuilder
     {
         $this->params['body']['query'] = $params;
+
+        return $this;
+    }
+
+    /**
+     * 设置返回值条数
+     * @param int $size
+     * @return SearchBuilder
+     */
+    public function size(int $size = 10): SearchBuilder
+    {
+        $this->params['size'] = $size;
 
         return $this;
     }
