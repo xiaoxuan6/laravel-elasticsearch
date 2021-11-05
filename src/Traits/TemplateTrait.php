@@ -2,15 +2,17 @@
 
 namespace Vinhson\Elasticsearch\Traits;
 
+use Vinhson\Elasticsearch\Indices\PutComponentTemplate;
 use Vinhson\Elasticsearch\Indices\PutIndexTemplate;
+use Vinhson\Elasticsearch\SearchBuilder;
 
 trait TemplateTrait
 {
     /**
      * 实例化模板对象
-     * @return \Vinhson\Elasticsearch\SearchBuilder
+     * @return SearchBuilder
      */
-    public function template(): \Vinhson\Elasticsearch\SearchBuilder
+    public function template(): SearchBuilder
     {
         return $this->unsetAttribute('index');
     }
@@ -20,7 +22,15 @@ trait TemplateTrait
      */
     public function putIndexTemplate(): PutIndexTemplate
     {
-        return (new PutIndexTemplate($this->getIndex(), null, $this->params))->unsetAttribute('index');
+        return (new PutIndexTemplate($this->getIndex(), null, $this->params));
+    }
+
+    /**
+     * @return putComponentTemplate
+     */
+    public function putComponentTemplate(): PutComponentTemplate
+    {
+        return (new PutComponentTemplate($this->getIndex(), null, $this->params));
     }
 
     /**

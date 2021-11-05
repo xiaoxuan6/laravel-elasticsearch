@@ -2,8 +2,6 @@
 
 namespace Vinhson\Elasticsearch\Traits;
 
-use Vinhson\Elasticsearch\SearchBuilder;
-
 trait DocTrait
 {
     /**
@@ -61,9 +59,9 @@ trait DocTrait
      * 多字段排序
      *
      * @param array $column
-     * @return SearchBuilder
+     * @return $this
      */
-    public function orderByAscOrDesc(array $column = []): SearchBuilder
+    public function orderByAscOrDesc(array $column = [])
     {
         foreach ($column as $key => $value) {
             $this->orderBy([$key => ['order' => $value]]);
@@ -91,9 +89,9 @@ trait DocTrait
      * 根据字段升序排序
      *
      * @param $column
-     * @return SearchBuilder
+     * @return $this
      */
-    public function orderByAsc($column): SearchBuilder
+    public function orderByAsc($column)
     {
         $this->orderByCloumn($column, 'asc');
 
@@ -104,9 +102,9 @@ trait DocTrait
      * 根据字段降序排序
      *
      * @param $column
-     * @return SearchBuilder
+     * @return $this
      */
-    public function orderByDesc($column): SearchBuilder
+    public function orderByDesc($column)
     {
         $this->orderByCloumn($column, 'desc');
 
@@ -117,9 +115,9 @@ trait DocTrait
      * 设置搜索结果中可展示的字段
      *
      * @param array $column
-     * @return SearchBuilder
+     * @return $this
      */
-    public function stored(array $column = []): SearchBuilder
+    public function stored(array $column = [])
     {
         $this->params['body']['stored_fields'] = $column;
 

@@ -9,6 +9,7 @@
 namespace Vinhson\Elasticsearch;
 
 use Illuminate\Foundation\Application;
+use Vinhson\Elasticsearch\Exceptions\ErrorException;
 use Vinhson\Elasticsearch\Traits\ConnectionTrait;
 
 class Manager
@@ -122,13 +123,22 @@ class Manager
      * @param array $parameters
      *
      * @return mixed
+     * @throws ErrorException
      */
     public function __call(string $method, array $parameters)
     {
-        if (method_exists($this, $method)) {
-            return call_user_func_array([$this, $method], $parameters);
-        }
+        try {
 
-        return call_user_func_array([$this->connection(), $method], $parameters);
+            if (method_exists($this, $method)) {
+                return call_user_func_array([$this, $method], $parameters);
+            }
+
+            return call_user_func_array([$this->connection(), $method], $parameters);
+            
+        } catch (\Exception $exception) {
+            
+            throw ErrorException::make($exception->getCode(), $exception->getMessage());
+            
+        }
     }
 }

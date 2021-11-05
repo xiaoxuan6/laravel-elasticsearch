@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Facade;
  *
  * @method static \Vinhson\Elasticsearch\SearchBuilder template()
  * @method static \Vinhson\Elasticsearch\Indices\PutIndexTemplate putIndexTemplate()
+ * @method static \Vinhson\Elasticsearch\Indices\putComponentTemplate putComponentTemplate()
  *
  * @method static array count(array $params = [])
  * @method static array get($id)

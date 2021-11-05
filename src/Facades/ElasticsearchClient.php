@@ -9,6 +9,7 @@
 namespace Vinhson\Elasticsearch\Facades;
 
 use Elasticsearch\Client;
+use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
 use Illuminate\Support\Facades\Facade;
 
@@ -34,6 +35,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static Client search(array $params = [])
  *
  * @method static IndicesNamespace indices()
+ * @method static ClusterNamespace cluster()
  *
  * @method static \Vinhson\Elasticsearch\Manager getConnections()
  * @method static \Vinhson\Elasticsearch\Manager setDefaultConnection(string $connection)

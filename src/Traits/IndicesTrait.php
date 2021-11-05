@@ -107,7 +107,7 @@ trait IndicesTrait
      *          'refresh_interval' => 3 // 执行刷新操作的频率
      *      ];
      */
-    public function putSettings(array $params = []): SearchBuilder
+    public function putSettings(array $params = [])
     {
         $this->params['body']['settings'] = array_merge($params, (array_key_exists('settings', $this->params['body']) ? $this->params['body']['settings'] : []));
 
@@ -139,7 +139,7 @@ trait IndicesTrait
      *          ]
      *      ];
      */
-    public function putMapping(array $params = [], $force = false): SearchBuilder
+    public function putMapping(array $params = [], $force = false)
     {
         if (!$force) {
             $this->params['body']['mappings'] = $params;
@@ -156,7 +156,7 @@ trait IndicesTrait
      * @param array|string $aliases
      * @return SearchBuilder
      */
-    public function setAliases($aliases): SearchBuilder
+    public function setAliases($aliases)
     {
         $aliases = is_array($aliases) ? $aliases : [$aliases => new \stdClass()];
 
