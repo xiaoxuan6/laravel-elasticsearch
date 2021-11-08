@@ -5,6 +5,41 @@ namespace Vinhson\Elasticsearch\Indices\Traits;
 trait TemplateTrait
 {
     /**
+     * 模板名
+     * @param string $templateName
+     * @return $this
+     */
+    public function name(string $templateName)
+    {
+        $this->params['name'] = $templateName;
+
+        return $this;
+    }
+
+    /**
+     * 必须配置，用于在创建期间匹配索引名称的通配符（*）表达式数组
+     *
+     * 索引规则：可以是具体的名称或 * 匹配
+     * @param $pattern
+     * @return $this
+     */
+    public function indexPatterns($pattern)
+    {
+        $pattern = is_array($pattern) ? $pattern : [$pattern];
+
+        $this->params['body']['index_patterns'] = $pattern;
+
+        return $this;
+    }
+
+    public function putTemplate(array $template = [])
+    {
+        $this->params['body']['template'] = $template;
+
+        return $this;
+    }
+
+    /**
      * 设置 component templates 可重用的构建块
      * @param array $composed_of
      * @return $this
@@ -19,6 +54,43 @@ trait TemplateTrait
     public function priority(int $priority = 0)
     {
         $this->params['body']['priority'] = $priority;
+
+        return $this;
+    }
+
+    /**
+     * 模板的权重, 多个模板的时候优先匹配用, 值越大, 权重越高
+     * @param int $templateId
+     * @return $this
+     */
+    public function order(int $templateId = 0)
+    {
+        $this->params['body']['order'] = $templateId;
+
+        return $this;
+    }
+
+    /**
+     * 版本
+     * @param $version
+     * @return $this
+     */
+    public function version($version)
+    {
+        $this->params['body']['version'] = $version;
+
+        return $this;
+    }
+
+    /**
+     * 配置可选，用于配置一些介绍信息，比如用户元数据
+     *
+     * @param array $meta
+     * @return $this
+     */
+    public function meta(array $meta = [])
+    {
+        $this->params['_meta'] = $meta;
 
         return $this;
     }
@@ -44,13 +116,6 @@ trait TemplateTrait
         return $this;
     }
 
-    public function putTemplate(array $template = [])
-    {
-        $this->params['body']['template'] = $template;
-
-        return $this;
-    }
-
     public function putOverlapping(array $overlapping = [])
     {
         $this->params['body']['overlapping'] = $overlapping;
@@ -65,7 +130,9 @@ trait TemplateTrait
         }
 
         if (!isset($this->params['name'])) {
-            $this->params['name'] = 'component_template_' . $this->getIndex();
+
+            $name = $this->getName();
+            $this->params['name'] = $name;
         }
 
         $this->unsetAttribute('index');

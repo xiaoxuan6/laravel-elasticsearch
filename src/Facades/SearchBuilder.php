@@ -3,6 +3,9 @@
 namespace Vinhson\Elasticsearch\Facades;
 
 use Illuminate\Support\Facades\Facade;
+use Vinhson\Elasticsearch\Indices\putComponentTemplate;
+use Vinhson\Elasticsearch\Indices\PutIndexTemplate;
+use Vinhson\Elasticsearch\Indices\PutTemplate;
 
 /**
  * Class SearchBuilder
@@ -28,9 +31,9 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Vinhson\Elasticsearch\SearchBuilder putSettings(array $params = [])
  * @method static \Vinhson\Elasticsearch\SearchBuilder putMapping(array $parrams = [], bool $force = false)
  *
- * @method static \Vinhson\Elasticsearch\SearchBuilder template()
- * @method static \Vinhson\Elasticsearch\Indices\PutIndexTemplate putIndexTemplate()
- * @method static \Vinhson\Elasticsearch\Indices\putComponentTemplate putComponentTemplate()
+ * @method static PutTemplate putTemplate()
+ * @method static PutIndexTemplate putIndexTemplate()
+ * @method static putComponentTemplate putComponentTemplate()
  *
  * @method static array count(array $params = [])
  * @method static array get($id)
@@ -46,7 +49,7 @@ use Illuminate\Support\Facades\Facade;
  */
 class SearchBuilder extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return 'SearchBuilder';
     }

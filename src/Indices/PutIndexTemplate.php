@@ -8,5 +8,10 @@ use Vinhson\Elasticsearch\SearchBuilder;
 class PutIndexTemplate extends SearchBuilder
 {
     use TemplateTrait;
+
+    protected function getName(): string
+    {
+        return 'index_template_' . $this->getIndex();
+    }
 }
 
