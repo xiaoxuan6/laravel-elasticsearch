@@ -19,23 +19,26 @@
         }
     ],
     "require": {
+        "php": ">=7.0",
+        "illuminate/contracts": "~5.0||~6.0||~7.0||~8.0",
+        "symfony/var-dumper": "~5.0||~6.0",
         "elasticsearch/elasticsearch": "~6.0||~7.0"
     },
     "autoload": {
         "psr-4": {
             "Vinhson\\Elasticsearch\\": "src/"
         },
-        "files":[
+        "files": [
             "src/helper.php"
         ]
     },
     "extra": {
         "laravel": {
-            "providers":[
+            "providers": [
                 "Vinhson\\Elasticsearch\\ElasticsearchServiceProvider"
             ],
             "aliases": {
-                "SearchBuilder" : "Vinhson\\Elasticsearch\\Facades\\SearchBuilder",
+                "SearchBuilder": "Vinhson\\Elasticsearch\\Facades\\SearchBuilder",
                 "ElasticsearchClient": "Vinhson\\Elasticsearch\\Facades\\ElasticsearchClient"
             }
         }

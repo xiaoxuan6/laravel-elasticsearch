@@ -8,6 +8,8 @@
 
 namespace Vinhson\Elasticsearch;
 
+use Illuminate\Contracts\Support\Arrayable;
+use Symfony\Component\VarDumper\VarDumper;
 use Vinhson\Elasticsearch\Exceptions\ErrorException;
 use Vinhson\Elasticsearch\Facades\ElasticsearchClient;
 use Vinhson\Elasticsearch\Traits\ConnectionTrait;
@@ -16,7 +18,7 @@ use Vinhson\Elasticsearch\Traits\HasAttributeTrait;
 use Vinhson\Elasticsearch\Traits\IndicesTrait;
 use Vinhson\Elasticsearch\Traits\TemplateTrait;
 
-class SearchBuilder
+class SearchBuilder implements Arrayable
 {
     use ConnectionTrait,
         DocTrait,
@@ -229,6 +231,18 @@ class SearchBuilder
     }
 
     /**
+     * 后置过滤器
+     * @param array $params
+     * @return $this
+     */
+    public function postFilter(array $params = []): SearchBuilder
+    {
+        $this->params['body']['query'] = $params;
+
+        return $this;
+    }
+
+    /**
      * 设置返回值条数
      * @param int $size
      * @return SearchBuilder
@@ -335,4 +349,23 @@ class SearchBuilder
         }
     }
 
+    /**
+     * @param null $name
+     * @throws ErrorException
+     */
+    public function ddSearch($name = null)
+    {
+        VarDumper::dump($this->search($name));
+        exit(1);
+    }
+
+    /**
+     * 以数组格式输出
+     * @return void
+     */
+    public function toArray()
+    {
+        VarDumper::dump($this->builder());
+        exit(1);
+    }
 }
