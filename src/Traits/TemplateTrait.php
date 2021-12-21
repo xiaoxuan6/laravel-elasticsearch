@@ -5,6 +5,7 @@ namespace Vinhson\Elasticsearch\Traits;
 use Vinhson\Elasticsearch\Indices\PutComponentTemplate;
 use Vinhson\Elasticsearch\Indices\PutIndexTemplate;
 use Vinhson\Elasticsearch\Indices\PutTemplate;
+use Vinhson\Elasticsearch\SearchBuilder;
 
 trait TemplateTrait
 {

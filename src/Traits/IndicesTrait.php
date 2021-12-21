@@ -151,6 +151,16 @@ trait IndicesTrait
     }
 
     /**
+     * 修改字段映射
+     * @param array $params
+     * @return SearchBuilder
+     */
+    public function updateMapping(array $params = [])
+    {
+        return $this->putMapping($params, true);
+    }
+
+    /**
      * Notes: 创建索引添加别名
      * Date: 2020/11/28 12:34
      * @param array|string $aliases

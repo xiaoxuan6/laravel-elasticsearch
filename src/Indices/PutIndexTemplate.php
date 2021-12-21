@@ -9,7 +9,7 @@ class PutIndexTemplate extends SearchBuilder
 {
     use TemplateTrait;
 
-    protected function getName(): string
+    protected function getName()
     {
         return 'index_template_' . $this->getIndex();
     }

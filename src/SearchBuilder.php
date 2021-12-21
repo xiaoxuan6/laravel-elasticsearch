@@ -8,6 +8,8 @@
 
 namespace Vinhson\Elasticsearch;
 
+use Vinhson\Elasticsearch\Exceptions\ErrorException;
+use Vinhson\Elasticsearch\Facades\ElasticsearchClient;
 use Vinhson\Elasticsearch\Traits\ConnectionTrait;
 use Vinhson\Elasticsearch\Traits\DocTrait;
 use Vinhson\Elasticsearch\Traits\HasAttributeTrait;
@@ -268,17 +270,16 @@ class SearchBuilder
     }
 
     /**
-     * Notes: 聚合
-     * Date: 2020/11/17 11:45
-     * @param array $aggregations
+     * 聚合操作
+     * @param array $aggs
      * @return $this
      */
-//    public function setAggregations(array $aggregations = [])
-//    {
-//        $this->params["body"]["aggregations"] = $aggregations;
-//
-//        return $this;
-//    }
+    public function setAggregations(array $aggs = []): SearchBuilder
+    {
+        $this->params["body"]["aggs"] = $aggs;
+
+        return $this;
+    }
 
     /**
      * Notes: 高亮
@@ -309,7 +310,29 @@ class SearchBuilder
             $this->unsetType();
         }
 
+        if (isset($this->params['body']['id']) && !isset($this->params['id'])) {
+            $this->params['id'] = $this->params['body']['id'];
+        }
+
         return $this->params;
+    }
+
+    /**
+     * @param null $name
+     * @return array
+     * @throws ErrorException
+     */
+    public function search($name = null): array
+    {
+        if (!$this->isExistsConnection($name)) {
+            $name = $this->getDefaultConnection();
+        }
+
+        try {
+            return ElasticsearchClient::connection($name)->search($this->builder());
+        } catch (\Exception $exception) {
+            throw ErrorException::make($exception->getCode(), $exception->getMessage());
+        }
     }
 
 }

@@ -9,7 +9,7 @@ class PutComponentTemplate extends SearchBuilder
 {
     use TemplateTrait;
 
-    protected function getName(): string
+    protected function getName()
     {
         return 'component_template_' . $this->getIndex();
     }

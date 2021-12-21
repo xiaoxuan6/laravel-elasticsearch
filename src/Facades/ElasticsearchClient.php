@@ -12,6 +12,7 @@ use Elasticsearch\Client;
 use Elasticsearch\Namespaces\ClusterNamespace;
 use Elasticsearch\Namespaces\IndicesNamespace;
 use Illuminate\Support\Facades\Facade;
+use Vinhson\Elasticsearch\Manager;
 
 /**
  * Class ElasticsearchClient
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static Client ping(array $params = [])
  *
  * @method static Client get(array $params = [])
+ * @method static Client update(array $params = [])
  * @method static Client mget(array $params = [])
  * @method static Client getScript(array $params = [])
  * @method static Client getScriptContext(array $params = [])
@@ -37,15 +39,15 @@ use Illuminate\Support\Facades\Facade;
  * @method static IndicesNamespace indices()
  * @method static ClusterNamespace cluster()
  *
- * @method static \Vinhson\Elasticsearch\Manager getConnections()
- * @method static \Vinhson\Elasticsearch\Manager setDefaultConnection(string $connection)
+ * @method static Manager getConnections()
+ * @method static Manager setDefaultConnection(string $connection)
  * @method static string getDefaultConnection()
  *
  * @see \Vinhson\Elasticsearch\Manager
  */
 class ElasticsearchClient extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return 'elasticsearch.connection';
     }
