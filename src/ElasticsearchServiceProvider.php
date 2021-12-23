@@ -15,6 +15,13 @@ class ElasticsearchServiceProvider extends ServiceProvider
 {
     use ConnectionTrait;
 
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = true;
+
     public function boot()
     {
         $this->publishes([__DIR__ . '/../config/elasticsearch.php' => config_path('elasticsearch.php')], 'elasticsearch');

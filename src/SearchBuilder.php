@@ -9,13 +9,11 @@
 namespace Vinhson\Elasticsearch;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Symfony\Component\VarDumper\VarDumper;
-use Vinhson\Elasticsearch\Exceptions\ErrorException;
-use Vinhson\Elasticsearch\Facades\ElasticsearchClient;
 use Vinhson\Elasticsearch\Traits\ConnectionTrait;
 use Vinhson\Elasticsearch\Traits\DocTrait;
 use Vinhson\Elasticsearch\Traits\HasAttributeTrait;
 use Vinhson\Elasticsearch\Traits\IndicesTrait;
+use Vinhson\Elasticsearch\Traits\SearchTrait;
 use Vinhson\Elasticsearch\Traits\TemplateTrait;
 
 class SearchBuilder implements Arrayable
@@ -24,7 +22,10 @@ class SearchBuilder implements Arrayable
         DocTrait,
         HasAttributeTrait,
         IndicesTrait,
-        TemplateTrait;
+        TemplateTrait,
+        SearchTrait;
+
+    public $result;
 
     protected $params = [
         'index' => '',
@@ -332,40 +333,11 @@ class SearchBuilder implements Arrayable
     }
 
     /**
-     * @param null $name
-     * @return array
-     * @throws ErrorException
-     */
-    public function search($name = null): array
-    {
-        if (!$this->isExistsConnection($name)) {
-            $name = $this->getDefaultConnection();
-        }
-
-        try {
-            return ElasticsearchClient::connection($name)->search($this->builder());
-        } catch (\Exception $exception) {
-            throw ErrorException::make($exception->getCode(), $exception->getMessage());
-        }
-    }
-
-    /**
-     * @param null $name
-     * @throws ErrorException
-     */
-    public function ddSearch($name = null)
-    {
-        VarDumper::dump($this->search($name));
-        exit(1);
-    }
-
-    /**
      * 以数组格式输出
      * @return void
      */
     public function toArray()
     {
-        VarDumper::dump($this->builder());
-        exit(1);
+        ddDump($this->builder());
     }
 }

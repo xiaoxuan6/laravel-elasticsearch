@@ -20,7 +20,6 @@ use Vinhson\Elasticsearch\Manager;
  * @method static Client explain(array $params = [])
  * @method static Client info(array $params = [])
  * @method static Client ping(array $params = [])
- *
  * @method static Client get(array $params = [])
  * @method static Client update(array $params = [])
  * @method static Client mget(array $params = [])
@@ -53,8 +52,6 @@ class ElasticsearchClient extends Facade
     }
 
     /**
-     * Notes:
-     * Date: 2020/11/25 17:43
      * @param string|null $name
      * @return mixed
      */

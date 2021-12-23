@@ -6,6 +6,8 @@
  * Time: 14:04
  */
 
+use Symfony\Component\VarDumper\VarDumper;
+
 if (!function_exists('es')) {
     /**
      * @return \Elasticsearch\ClientBuilder
@@ -49,3 +51,15 @@ if (!function_exists('search')) {
         return $searchBuilder;
     }
 }
+
+if (!function_exists('ddDump')) {
+    /**
+     * @param $params
+     */
+    function ddDump($params)
+    {
+        VarDumper::dump($params);
+        exit(1);
+    }
+}
+

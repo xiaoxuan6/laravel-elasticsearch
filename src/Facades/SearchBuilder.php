@@ -15,7 +15,6 @@ use Vinhson\Elasticsearch\Indices\PutTemplate;
  * @method static \Vinhson\Elasticsearch\SearchBuilder setClient(array $client = [])
  * @method static \Vinhson\Elasticsearch\SearchBuilder ignore(string|array $client)
  * @method static \Vinhson\Elasticsearch\SearchBuilder setIndex(string $index)
- * @method static string getIndex(bool $force = false)
  * @method static \Vinhson\Elasticsearch\SearchBuilder unsetType()
  * @method static \Vinhson\Elasticsearch\SearchBuilder setKey(int|string $id)
  * @method static \Vinhson\Elasticsearch\SearchBuilder setBody(array $body = [])
@@ -35,6 +34,7 @@ use Vinhson\Elasticsearch\Indices\PutTemplate;
  * @method static PutIndexTemplate putIndexTemplate()
  * @method static putComponentTemplate putComponentTemplate()
  *
+ * @method static string|array getIndex(bool $force = false)
  * @method static array count(array $params = [])
  * @method static array get($id)
  * @method static array delete($id)
@@ -44,6 +44,11 @@ use Vinhson\Elasticsearch\Indices\PutTemplate;
  * @method static array putAlias(string $alias, $index = null)
  * @method static array updateAliases(array $actions = [])
  * @method static array builder()
+ *
+ * @method static array getById($id, $name = null)
+ * @method static array ddGetById($id, $name = null)
+ * @method static array search($name = null, array $params = [])
+ * @method static array ddSearch($name = null, array $params = [])
  *
  * @see \Vinhson\Elasticsearch\SearchBuilder
  */
