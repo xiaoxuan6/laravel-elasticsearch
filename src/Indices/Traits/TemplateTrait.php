@@ -5,8 +5,10 @@ namespace Vinhson\Elasticsearch\Indices\Traits;
 trait TemplateTrait
 {
     /**
-     * 模板名
+     * 模板名.
+     *
      * @param string $templateName
+     *
      * @return $this
      */
     public function name(string $templateName)
@@ -17,10 +19,12 @@ trait TemplateTrait
     }
 
     /**
-     * 必须配置，用于在创建期间匹配索引名称的通配符（*）表达式数组
+     * 必须配置，用于在创建期间匹配索引名称的通配符（*）表达式数组.
      *
      * 索引规则：可以是具体的名称或 * 匹配
+     *
      * @param $pattern
+     *
      * @return $this
      */
     public function indexPatterns($pattern)
@@ -40,8 +44,10 @@ trait TemplateTrait
     }
 
     /**
-     * 设置 component templates 可重用的构建块
+     * 设置 component templates 可重用的构建块.
+     *
      * @param array $composed_of
+     *
      * @return $this
      */
     public function composedOf(array $composed_of = [])
@@ -59,8 +65,10 @@ trait TemplateTrait
     }
 
     /**
-     * 模板的权重, 多个模板的时候优先匹配用, 值越大, 权重越高
+     * 模板的权重, 多个模板的时候优先匹配用, 值越大, 权重越高.
+     *
      * @param int $templateId
+     *
      * @return $this
      */
     public function order(int $templateId = 0)
@@ -71,8 +79,10 @@ trait TemplateTrait
     }
 
     /**
-     * 版本
+     * 版本.
+     *
      * @param $version
+     *
      * @return $this
      */
     public function version($version)
@@ -83,9 +93,10 @@ trait TemplateTrait
     }
 
     /**
-     * 配置可选，用于配置一些介绍信息，比如用户元数据
+     * 配置可选，用于配置一些介绍信息，比如用户元数据.
      *
      * @param array $meta
+     *
      * @return $this
      */
     public function meta(array $meta = [])
@@ -130,7 +141,6 @@ trait TemplateTrait
         }
 
         if (!isset($this->params['name'])) {
-
             $name = $this->getName();
             $this->params['name'] = $name;
         }

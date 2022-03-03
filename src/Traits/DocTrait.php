@@ -5,8 +5,10 @@ namespace Vinhson\Elasticsearch\Traits;
 trait DocTrait
 {
     /**
-     * 根据文档ID获取文档
+     * 根据文档ID获取文档.
+     *
      * @param $id
+     *
      * @return array|mixed
      */
     public function get($id)
@@ -15,8 +17,10 @@ trait DocTrait
     }
 
     /**
-     * 根据文档ID获取文档
+     * 根据文档ID获取文档.
+     *
      * @param array $ids
+     *
      * @return array|\array[][]|mixed
      */
     public function mget(array $ids = [])
@@ -25,8 +29,10 @@ trait DocTrait
     }
 
     /**
-     * 根据ID删除文档
+     * 根据ID删除文档.
+     *
      * @param $id
+     *
      * @return array|mixed
      */
     public function delete($id)
@@ -35,8 +41,10 @@ trait DocTrait
     }
 
     /**
-     * 根据搜索条件删除文档
+     * 根据搜索条件删除文档.
+     *
      * @param array $params
+     *
      * @return array|mixed
      */
     public function deleteByQuery(array $params = [])
@@ -45,9 +53,10 @@ trait DocTrait
     }
 
     /**
-     * 统计文档个数
+     * 统计文档个数.
      *
      * @param array $params
+     *
      * @return array
      */
     public function count(array $params = []): array
@@ -56,9 +65,10 @@ trait DocTrait
     }
 
     /**
-     * 多字段排序
+     * 多字段排序.
      *
      * @param array $column
+     *
      * @return $this
      */
     public function orderByAscOrDesc(array $column = [])
@@ -71,7 +81,7 @@ trait DocTrait
     }
 
     /**
-     * 根据字段值设置排序
+     * 根据字段值设置排序.
      *
      * @param $column
      * @param $direction
@@ -86,9 +96,10 @@ trait DocTrait
     }
 
     /**
-     * 根据字段升序排序
+     * 根据字段升序排序.
      *
      * @param $column
+     *
      * @return $this
      */
     public function orderByAsc($column)
@@ -99,9 +110,10 @@ trait DocTrait
     }
 
     /**
-     * 根据字段降序排序
+     * 根据字段降序排序.
      *
      * @param $column
+     *
      * @return $this
      */
     public function orderByDesc($column)
@@ -112,9 +124,10 @@ trait DocTrait
     }
 
     /**
-     * 设置搜索结果中可展示的字段
+     * 设置搜索结果中可展示的字段.
      *
      * @param array $column
+     *
      * @return $this
      */
     public function stored(array $column = [])

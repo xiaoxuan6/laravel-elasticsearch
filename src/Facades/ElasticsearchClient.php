@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: james.xue
  * Date: 2020/11/24
- * Time: 14:32
+ * Time: 14:32.
  */
 
 namespace Vinhson\Elasticsearch\Facades;
@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Facade;
 use Vinhson\Elasticsearch\Manager;
 
 /**
- * Class ElasticsearchClient
+ * Class ElasticsearchClient.
  *
  * @method static Client explain(array $params = [])
  * @method static Client info(array $params = [])
@@ -34,10 +34,8 @@ use Vinhson\Elasticsearch\Manager;
  * @method static Client msearch(array $params = [])
  * @method static Client count(array $params = [])
  * @method static Client search(array $params = [])
- *
  * @method static IndicesNamespace indices()
  * @method static ClusterNamespace cluster()
- *
  * @method static Manager getConnections()
  * @method static Manager setDefaultConnection(string $connection)
  * @method static string getDefaultConnection()
@@ -53,6 +51,7 @@ class ElasticsearchClient extends Facade
 
     /**
      * @param string|null $name
+     *
      * @return mixed
      */
     public static function connection(string $name = null)

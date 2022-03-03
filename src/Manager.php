@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: james.xue
  * Date: 2020/11/24
- * Time: 14:20
+ * Time: 14:20.
  */
 
 namespace Vinhson\Elasticsearch;
@@ -39,7 +39,7 @@ class Manager
 
     /**
      * @param \Illuminate\Foundation\Application $app
-     * @param \Vinhson\Elasticsearch\Factory $factory
+     * @param \Vinhson\Elasticsearch\Factory     $factory
      */
     public function __construct(Application $app, Factory $factory)
     {
@@ -52,8 +52,9 @@ class Manager
      *
      * @param string|null $name
      *
-     * @return \Elasticsearch\Client
      * @throws \Exception
+     *
+     * @return \Elasticsearch\Client
      */
     public function connection(string $name = null): \Elasticsearch\Client
     {
@@ -80,8 +81,10 @@ class Manager
      * Make a new connection.
      *
      * @param string $name
-     * @return \Elasticsearch\Client
+     *
      * @throws \Exception
+     *
+     * @return \Elasticsearch\Client
      */
     protected function makeConnection(string $name): \Elasticsearch\Client
     {
@@ -120,25 +123,22 @@ class Manager
      * Dynamically pass methods to the default connection.
      *
      * @param string $method
-     * @param array $parameters
+     * @param array  $parameters
+     *
+     * @throws ErrorException
      *
      * @return mixed
-     * @throws ErrorException
      */
     public function __call(string $method, array $parameters)
     {
         try {
-
             if (method_exists($this, $method)) {
                 return call_user_func_array([$this, $method], $parameters);
             }
 
             return call_user_func_array([$this->connection(), $method], $parameters);
-            
         } catch (\Exception $exception) {
-            
             throw ErrorException::make($exception->getCode(), $exception->getMessage());
-            
         }
     }
 }

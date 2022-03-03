@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: james.xue
  * Date: 2020/11/24
- * Time: 10:55
+ * Time: 10:55.
  */
 
 namespace Vinhson\Elasticsearch\Traits;
@@ -13,8 +13,10 @@ use Vinhson\Elasticsearch\SearchBuilder;
 trait IndicesTrait
 {
     /**
-     * 查看字符串分词
+     * 查看字符串分词.
+     *
      * @param array $body
+     *
      * @return array[]
      */
     public function analyze(array $body = []): array
@@ -23,9 +25,10 @@ trait IndicesTrait
     }
 
     /**
-     * 字符过滤器
+     * 字符过滤器.
      *
      * @param array $char_filter
+     *
      * @return SearchBuilder
      */
     public function charFilter(array $char_filter = []): SearchBuilder
@@ -36,9 +39,10 @@ trait IndicesTrait
     }
 
     /**
-     * 词单元过滤器
+     * 词单元过滤器.
      *
      * @param array $filter
+     *
      * @return SearchBuilder
      */
     public function filter(array $filter = []): SearchBuilder
@@ -49,9 +53,10 @@ trait IndicesTrait
     }
 
     /**
-     * Token 过滤器
+     * Token 过滤器.
      *
      * @param array $tokenizer
+     *
      * @return SearchBuilder
      */
     public function tokenizer(array $tokenizer = []): SearchBuilder
@@ -62,8 +67,10 @@ trait IndicesTrait
     }
 
     /**
-     * 分词器
+     * 分词器.
+     *
      * @param array $analyzer
+     *
      * @return SearchBuilder
      */
     public function analyzer(array $analyzer = []): SearchBuilder
@@ -74,20 +81,22 @@ trait IndicesTrait
     }
 
     /**
-     * 分词器集合
+     * 分词器集合.
+     *
      * @param array $char_filter
      * @param array $filter
      * @param array $tokenizer
      * @param array $analyzer
+     *
      * @return SearchBuilder
      */
     public function analysis(array $char_filter = [], array $filter = [], array $tokenizer = [], array $analyzer = []): SearchBuilder
     {
         $this->params['body']['settings']['analysis'] = array_filter([
             'char_filter' => $char_filter,
-            'filter' => $filter,
-            'tokenizer' => $tokenizer,
-            'analyzer' => $analyzer
+            'filter'      => $filter,
+            'tokenizer'   => $tokenizer,
+            'analyzer'    => $analyzer,
         ]);
 
         return $this;
@@ -98,7 +107,9 @@ trait IndicesTrait
      * Warning：只能在索引创建时或者在状态为 closed index（闭合的索引）上设置。
      *
      * Date: 2020/11/21 22:18
+     *
      * @param array $params 动态 settings (@see https://blog.csdn.net/u013545439/article/details/102744233)
+     *
      * @return SearchBuilder
      *
      * ex：
@@ -117,11 +128,13 @@ trait IndicesTrait
     /**
      * Notes: Put Mappings API 允许你更改或增加一个索引的映射。
      * Warning：setAttribute(['include_type_name' => true])
-     *          版本 7.0 之后不支持type导致的 (@see https://blog.csdn.net/qq_18671415/article/details/109690458)
+     *          版本 7.0 之后不支持type导致的 (@see https://blog.csdn.net/qq_18671415/article/details/109690458).
      *
      * Date: 2020/11/21 23:34
+     *
      * @param array $params
-     * @param bool $force 是否修改映射
+     * @param bool  $force  是否修改映射
+     *
      * @return SearchBuilder
      *
      * ex：
@@ -151,8 +164,10 @@ trait IndicesTrait
     }
 
     /**
-     * 修改字段映射
+     * 修改字段映射.
+     *
      * @param array $params
+     *
      * @return SearchBuilder
      */
     public function updateMapping(array $params = [])
@@ -162,8 +177,10 @@ trait IndicesTrait
 
     /**
      * Notes: 创建索引添加别名
-     * Date: 2020/11/28 12:34
+     * Date: 2020/11/28 12:34.
+     *
      * @param array|string $aliases
+     *
      * @return SearchBuilder
      */
     public function setAliases($aliases)
@@ -176,10 +193,11 @@ trait IndicesTrait
     }
 
     /**
-     * 对现有的索引添加别名
+     * 对现有的索引添加别名.
      *
      * @param string $alias
-     * @param null $index
+     * @param null   $index
+     *
      * @return array
      */
     public function deleteAlias(string $alias, $index = null): array
@@ -188,10 +206,11 @@ trait IndicesTrait
     }
 
     /**
-     * 索引别名是否存在
+     * 索引别名是否存在.
      *
      * @param string $alias
-     * @param null $index
+     * @param null   $index
+     *
      * @return array
      */
     public function existsAlias(string $alias, $index = null): array
@@ -206,10 +225,11 @@ trait IndicesTrait
     }
 
     /**
-     * 对现有的索引添加别名
+     * 对现有的索引添加别名.
      *
      * @param string $alias
-     * @param null $index
+     * @param null   $index
+     *
      * @return array
      */
     public function putAlias(string $alias, $index = null): array
@@ -218,8 +238,10 @@ trait IndicesTrait
     }
 
     /**
-     * 对现有的索引别名操作
+     * 对现有的索引别名操作.
+     *
      * @param array $actions
+     *
      * @return array
      *
      * ex：

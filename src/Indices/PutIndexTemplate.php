@@ -11,7 +11,6 @@ class PutIndexTemplate extends SearchBuilder
 
     protected function getName()
     {
-        return 'index_template_' . $this->getIndex();
+        return 'index_template_'.$this->getIndex();
     }
 }
-

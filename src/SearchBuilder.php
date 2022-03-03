@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: james.xue
  * Date: 2020/11/17
- * Time: 11:31
+ * Time: 11:31.
  */
 
 namespace Vinhson\Elasticsearch;
@@ -18,25 +18,26 @@ use Vinhson\Elasticsearch\Traits\TemplateTrait;
 
 class SearchBuilder implements Arrayable
 {
-    use ConnectionTrait,
-        DocTrait,
-        HasAttributeTrait,
-        IndicesTrait,
-        TemplateTrait,
-        SearchTrait;
+    use ConnectionTrait;
+    use DocTrait;
+    use HasAttributeTrait;
+    use IndicesTrait;
+    use TemplateTrait;
+    use SearchTrait;
 
     public $result;
 
     protected $params = [
         'index' => '',
-        'type' => '',
-        'body' => []
+        'type'  => '',
+        'body'  => [],
     ];
 
     /**
      * SearchBuilder constructor.
-     * @param null $index
-     * @param null $type
+     *
+     * @param null  $index
+     * @param null  $type
      * @param array $params
      */
     public function __construct($index = null, $type = null, array $params = [])
@@ -50,7 +51,8 @@ class SearchBuilder implements Arrayable
 
     /**
      * Notes: 初始化索引名和type
-     * Date: 2020/11/17 11:52
+     * Date: 2020/11/17 11:52.
+     *
      * @param null $index
      * @param null $type
      */
@@ -66,13 +68,15 @@ class SearchBuilder implements Arrayable
 
     /**
      * Notes: 实例本类
-     * Date: 2020/11/17 14:17
-     * @param null $index
-     * @param null $type
+     * Date: 2020/11/17 14:17.
+     *
+     * @param null  $index
+     * @param null  $type
      * @param array $params
+     *
      * @return SearchBuilder
      */
-    static public function make($index = null, $type = null, array $params = []): SearchBuilder
+    public static function make($index = null, $type = null, array $params = []): SearchBuilder
     {
         return new static($index, $type, $params);
     }
@@ -86,8 +90,9 @@ class SearchBuilder implements Arrayable
      */
     public function connection(string $name = null): SearchBuilder
     {
-        if (!($name && $this->isExistsConnection($name)))
+        if (!($name && $this->isExistsConnection($name))) {
             throw new \InvalidArgumentException("Elasticsearch connection [$name] not configured.");
+        }
 
         $index = $this->getElasticsearchIndex($name);
         $type = $this->getElasticsearchType($name);
@@ -107,8 +112,10 @@ class SearchBuilder implements Arrayable
 
     /**
      * Notes: 自定义查询参数
-     * Date: 2020/11/24 10:15
+     * Date: 2020/11/24 10:15.
+     *
      * @param array $client
+     *
      * @return $this
      */
     public function setClient(array $client = []): SearchBuilder
@@ -120,8 +127,10 @@ class SearchBuilder implements Arrayable
 
     /**
      * Notes: 忽略异常
-     * Date: 2020/11/24 10:06
+     * Date: 2020/11/24 10:06.
+     *
      * @param int $status 忽略错误码（多个是数组）
+     *
      * @return $this
      */
     public function ignore(int $status = 404): SearchBuilder
@@ -133,8 +142,10 @@ class SearchBuilder implements Arrayable
 
     /**
      * Notes: 设置索引名
-     * Date: 2020/11/21 22:28
+     * Date: 2020/11/21 22:28.
+     *
      * @param $index
+     *
      * @return $this
      */
     public function setIndex($index): SearchBuilder
@@ -146,8 +157,10 @@ class SearchBuilder implements Arrayable
 
     /**
      * Notes: 获取索引名
-     * Date: 2020/11/21 22:29
+     * Date: 2020/11/21 22:29.
+     *
      * @param bool $force
+     *
      * @return mixed
      */
     public function getIndex(bool $force = false)
@@ -157,7 +170,8 @@ class SearchBuilder implements Arrayable
 
     /**
      * Notes: 删除 type 属性
-     * Date: 2020/11/21 22:38
+     * Date: 2020/11/21 22:38.
+     *
      * @return SearchBuilder
      */
     public function unsetType(): self
@@ -169,8 +183,10 @@ class SearchBuilder implements Arrayable
 
     /**
      * Notes: 设置文档ID
-     * Date: 2020/11/17 13:56
+     * Date: 2020/11/17 13:56.
+     *
      * @param $id
+     *
      * @return $this
      */
     public function setKey($id): SearchBuilder
@@ -182,8 +198,10 @@ class SearchBuilder implements Arrayable
 
     /**
      * Notes: 设置 Body 属性
-     * Date: 2020/11/17 11:42
+     * Date: 2020/11/17 11:42.
+     *
      * @param array $body
+     *
      * @return $this
      */
     public function setBody(array $body = []): SearchBuilder
@@ -195,7 +213,8 @@ class SearchBuilder implements Arrayable
 
     /**
      * Notes: 删除 Body 属性
-     * Date: 2020/11/17 14:12
+     * Date: 2020/11/17 14:12.
+     *
      * @return SearchBuilder
      */
     public function unsetBody(): self
@@ -207,8 +226,10 @@ class SearchBuilder implements Arrayable
 
     /**
      * Notes: 设置获取文档显示的字段
-     * Date: 2020/11/17 15:07
+     * Date: 2020/11/17 15:07.
+     *
      * @param array $source
+     *
      * @return $this
      */
     public function setSource(array $source = []): SearchBuilder
@@ -220,8 +241,10 @@ class SearchBuilder implements Arrayable
 
     /**
      * Notes: 设置查询语句
-     * Date: 2020/11/17 11:43
+     * Date: 2020/11/17 11:43.
+     *
      * @param array $params
+     *
      * @return $this
      */
     public function setParams(array $params = []): SearchBuilder
@@ -232,8 +255,10 @@ class SearchBuilder implements Arrayable
     }
 
     /**
-     * 后置过滤器
+     * 后置过滤器.
+     *
      * @param array $params
+     *
      * @return $this
      */
     public function postFilter(array $params = []): SearchBuilder
@@ -244,8 +269,10 @@ class SearchBuilder implements Arrayable
     }
 
     /**
-     * 设置返回值条数
+     * 设置返回值条数.
+     *
      * @param int $size
+     *
      * @return SearchBuilder
      */
     public function size(int $size = 10): SearchBuilder
@@ -256,9 +283,11 @@ class SearchBuilder implements Arrayable
     }
 
     /**
-     * Notes: 分页
-     * @param int $page 从第几页开始
+     * Notes: 分页.
+     *
+     * @param int $page     从第几页开始
      * @param int $pageLime 每页显示个数
+     *
      * @return $this
      */
     public function paginate(int $page = 1, int $pageLime = 10): SearchBuilder
@@ -271,8 +300,10 @@ class SearchBuilder implements Arrayable
 
     /**
      * Notes: 排序
-     * Date: 2020/11/17 11:40
+     * Date: 2020/11/17 11:40.
+     *
      * @param array $orderBy
+     *
      * @return $this
      */
     public function orderBy(array $orderBy = []): SearchBuilder
@@ -285,22 +316,26 @@ class SearchBuilder implements Arrayable
     }
 
     /**
-     * 聚合操作
+     * 聚合操作.
+     *
      * @param array $aggs
+     *
      * @return $this
      */
     public function setAggregations(array $aggs = []): SearchBuilder
     {
-        $this->params["body"]["aggs"] = $aggs;
+        $this->params['body']['aggs'] = $aggs;
 
         return $this;
     }
 
     /**
      * Notes: 高亮
-     * Date: 2020/11/18 15:34
+     * Date: 2020/11/18 15:34.
+     *
      * @param array $fields
-     * @param bool $force
+     * @param bool  $force
+     *
      * @return $this
      */
     public function highlight(array $fields = [], bool $force = false): SearchBuilder
@@ -316,7 +351,8 @@ class SearchBuilder implements Arrayable
 
     /**
      * Notes: 构建查询 sql
-     * Date: 2020/11/17 11:41
+     * Date: 2020/11/17 11:41.
+     *
      * @return array
      */
     public function builder(): array
@@ -333,7 +369,8 @@ class SearchBuilder implements Arrayable
     }
 
     /**
-     * 以数组格式输出
+     * 以数组格式输出.
+     *
      * @return void
      */
     public function toArray()
