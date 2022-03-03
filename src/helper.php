@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: james.xue
  * Date: 2020/11/22
- * Time: 14:04
+ * Time: 14:04.
  */
 
 use Symfony\Component\VarDumper\VarDumper;
@@ -22,6 +22,7 @@ if (!function_exists('search')) {
     /**
      * @param null $index
      * @param null $type
+     *
      * @return \Vinhson\Elasticsearch\SearchBuilder
      */
     function search($index = null, $type = null): \Vinhson\Elasticsearch\SearchBuilder
@@ -62,4 +63,3 @@ if (!function_exists('ddDump')) {
         exit(1);
     }
 }
-

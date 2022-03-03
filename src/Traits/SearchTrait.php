@@ -9,14 +9,16 @@ use Vinhson\Elasticsearch\Facades\ElasticsearchClient;
 trait SearchTrait
 {
     private $validMethod = [
-        'search', 'get'
+        'search', 'get',
     ];
 
     /**
      * @param $id
      * @param null $name
-     * @return array
+     *
      * @throws ErrorException
+     *
+     * @return array
      */
     public function getById($id, $name = null): array
     {
@@ -25,6 +27,7 @@ trait SearchTrait
 
     /**
      * @param null $name
+     *
      * @throws ErrorException
      */
     public function ddGetById($id, $name = null)
@@ -34,8 +37,10 @@ trait SearchTrait
 
     /**
      * @param null $name
-     * @return array
+     *
      * @throws ErrorException
+     *
+     * @return array
      */
     public function search($name = null): array
     {
@@ -44,6 +49,7 @@ trait SearchTrait
 
     /**
      * @param null $name
+     *
      * @throws ErrorException
      */
     public function ddSearch($name = null)
@@ -53,9 +59,11 @@ trait SearchTrait
 
     /**
      * @param array $params
-     * @param null $name
-     * @return array|callable
+     * @param null  $name
+     *
      * @throws ErrorException
+     *
+     * @return array|callable
      */
     public function searchWithQuery(array $params = [], $name = null): array
     {
@@ -66,8 +74,10 @@ trait SearchTrait
      * @param $name
      * @param $method
      * @param $arguments
-     * @return array|callable
+     *
      * @throws ErrorException
+     *
+     * @return array|callable
      */
     protected function _call($name, $method, $arguments)
     {
@@ -96,16 +106,13 @@ trait SearchTrait
         $methods = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
 
         if (isset($methods[1]) and $function = $methods[1]['function']) {
-
             $method = lcfirst(Str::replaceFirst('dd', '', $function));
 
             if (method_exists($this, $method)) {
-
                 return $this->{$method}(...func_get_args());
             }
 
             throw ErrorException::make(500, sprintf('method: %s not exists', $method));
-
         }
 
         throw ErrorException::make(500, sprintf('method: %s not exists', $methods[1]['function'] ?? ''));

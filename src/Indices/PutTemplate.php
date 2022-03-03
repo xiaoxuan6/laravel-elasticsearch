@@ -11,7 +11,6 @@ class PutTemplate extends SearchBuilder
 
     protected function getName(): string
     {
-        return 'template_' . $this->getIndex();
+        return 'template_'.$this->getIndex();
     }
 }
-

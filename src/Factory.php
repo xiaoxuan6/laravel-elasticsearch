@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: james.xue
  * Date: 2020/11/24
- * Time: 14:22
+ * Time: 14:22.
  */
 
 namespace Vinhson\Elasticsearch;
@@ -20,8 +20,9 @@ class Factory
      *
      * @param array $config
      *
-     * @return \Elasticsearch\Client
      * @throws \Exception
+     *
+     * @return \Elasticsearch\Client
      */
     public function make(array $config): Client
     {
@@ -33,8 +34,9 @@ class Factory
      *
      * @param array $config
      *
-     * @return \Elasticsearch\Client
      * @throws \Exception
+     *
+     * @return \Elasticsearch\Client
      */
     protected function client(array $config): Client
     {
@@ -49,10 +51,13 @@ class Factory
     }
 
     /**
-     * Notes: Set log configure
+     * Notes: Set log configure.
+     *
      * @param ClientBuilder $clientBuilder
-     * @return ClientBuilder
+     *
      * @throws \Exception
+     *
+     * @return ClientBuilder
      */
     protected function setLog(ClientBuilder $clientBuilder): ClientBuilder
     {

@@ -8,7 +8,7 @@ use Vinhson\Elasticsearch\Indices\PutIndexTemplate;
 use Vinhson\Elasticsearch\Indices\PutTemplate;
 
 /**
- * Class SearchBuilder
+ * Class SearchBuilder.
  *
  * @method static \Vinhson\Elasticsearch\SearchBuilder connection(string $name = null)
  * @method static \Vinhson\Elasticsearch\SearchBuilder make($index = null, $type = null, $params = [])
@@ -29,11 +29,9 @@ use Vinhson\Elasticsearch\Indices\PutTemplate;
  * @method static \Vinhson\Elasticsearch\SearchBuilder unsetAttribute(array|string $attributes)
  * @method static \Vinhson\Elasticsearch\SearchBuilder putSettings(array $params = [])
  * @method static \Vinhson\Elasticsearch\SearchBuilder putMapping(array $parrams = [], bool $force = false)
- *
  * @method static PutTemplate putTemplate()
  * @method static PutIndexTemplate putIndexTemplate()
  * @method static putComponentTemplate putComponentTemplate()
- *
  * @method static string|array getIndex(bool $force = false)
  * @method static array count(array $params = [])
  * @method static array get($id)
@@ -44,7 +42,6 @@ use Vinhson\Elasticsearch\Indices\PutTemplate;
  * @method static array putAlias(string $alias, $index = null)
  * @method static array updateAliases(array $actions = [])
  * @method static array builder()
- *
  * @method static array getById($id, $name = null)
  * @method static array ddGetById($id, $name = null)
  * @method static array search($name = null, array $params = [])

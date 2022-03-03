@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: james.xue
  * Date: 2020/11/25
- * Time: 17:50
+ * Time: 17:50.
  */
 
 namespace Vinhson\Elasticsearch\Traits;
@@ -14,6 +14,7 @@ trait ConnectionTrait
      * Get the default connection.
      *
      * @param null $app
+     *
      * @return string
      */
     public function getDefaultConnection($app = null): string
@@ -51,8 +52,10 @@ trait ConnectionTrait
 
     /**
      * Notes: 是否设置驱动配置
-     * Date: 2020/11/26 11:10
+     * Date: 2020/11/26 11:10.
+     *
      * @param null $name
+     *
      * @return bool
      */
     public function isExistsConnection($name = null): bool
@@ -62,7 +65,8 @@ trait ConnectionTrait
 
     /**
      * Notes: 获取 is_unset_type 配置
-     * Date: 2020/11/28 19:03
+     * Date: 2020/11/28 19:03.
+     *
      * @return \Illuminate\Config\Repository|mixed
      */
     public function fetchIsUserType()

@@ -11,6 +11,6 @@ class PutComponentTemplate extends SearchBuilder
 
     protected function getName()
     {
-        return 'component_template_' . $this->getIndex();
+        return 'component_template_'.$this->getIndex();
     }
 }

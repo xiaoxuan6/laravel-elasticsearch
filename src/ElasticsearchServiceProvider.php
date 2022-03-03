@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: james.xue
  * Date: 2020/11/22
- * Time: 13:54
+ * Time: 13:54.
  */
 
 namespace Vinhson\Elasticsearch;
@@ -24,12 +24,12 @@ class ElasticsearchServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->publishes([__DIR__ . '/../config/elasticsearch.php' => config_path('elasticsearch.php')], 'elasticsearch');
+        $this->publishes([__DIR__.'/../config/elasticsearch.php' => config_path('elasticsearch.php')], 'elasticsearch');
     }
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/elasticsearch.php', 'elasticsearch');
+        $this->mergeConfigFrom(__DIR__.'/../config/elasticsearch.php', 'elasticsearch');
 
         $this->registerElasticsearch();
 
@@ -42,7 +42,7 @@ class ElasticsearchServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register elasticsearch service
+     * Register elasticsearch service.
      */
     protected function registerElasticsearch()
     {

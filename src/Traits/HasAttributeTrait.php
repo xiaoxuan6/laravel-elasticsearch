@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: james.xue
  * Date: 2020/11/22
- * Time: 13:11
+ * Time: 13:11.
  */
 
 namespace Vinhson\Elasticsearch\Traits;
@@ -18,8 +18,10 @@ trait HasAttributeTrait
 
     /**
      * Notes: 设置属性
-     * Date: 2020/11/21 23:43
+     * Date: 2020/11/21 23:43.
+     *
      * @param array $attributes
+     *
      * @return $this
      */
     public function setAttribute(array $attributes = [])
@@ -33,8 +35,10 @@ trait HasAttributeTrait
 
     /**
      * Notes: 删除属性
-     * Date: 2020/11/21 22:49
+     * Date: 2020/11/21 22:49.
+     *
      * @param $attributes
+     *
      * @return SearchBuilder
      */
     public function unsetAttribute($attributes): SearchBuilder
@@ -52,8 +56,10 @@ trait HasAttributeTrait
 
     /**
      * Notes: 获取属性
-     * Date: 2020/11/22 13:20
+     * Date: 2020/11/22 13:20.
+     *
      * @param $name
+     *
      * @return mixed|null
      */
     public function __get($name)
