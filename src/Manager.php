@@ -1,16 +1,20 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: james.xue
- * Date: 2020/11/24
- * Time: 14:20.
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) vinhson <15227736751@qq.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
-
 namespace Vinhson\Elasticsearch;
 
+use Exception;
+use Elasticsearch\Client;
+use InvalidArgumentException;
 use Illuminate\Foundation\Application;
-use Vinhson\Elasticsearch\Exceptions\ErrorException;
 use Vinhson\Elasticsearch\Traits\ConnectionTrait;
+use Vinhson\Elasticsearch\Exceptions\ErrorException;
 
 class Manager
 {
@@ -19,14 +23,14 @@ class Manager
     /**
      * The application instance.
      *
-     * @var \Illuminate\Foundation\Application
+     * @var Application
      */
     protected $app;
 
     /**
      * The Elasticsearch connection factory instance.
      *
-     * @var \Vinhson\Elasticsearch\Factory
+     * @var Factory
      */
     protected $factory;
 
@@ -38,8 +42,8 @@ class Manager
     protected $connections = [];
 
     /**
-     * @param \Illuminate\Foundation\Application $app
-     * @param \Vinhson\Elasticsearch\Factory     $factory
+     * @param Application $app
+     * @param Factory $factory
      */
     public function __construct(Application $app, Factory $factory)
     {
@@ -52,15 +56,15 @@ class Manager
      *
      * @param string|null $name
      *
-     * @throws \Exception
+     * @throws Exception
      *
-     * @return \Elasticsearch\Client
+     * @return Client
      */
-    public function connection(string $name = null): \Elasticsearch\Client
+    public function connection(string $name = null): Client
     {
         $name = $name ?: $this->getDefaultConnection();
 
-        if (!isset($this->connections[$name])) {
+        if (! isset($this->connections[$name])) {
             $this->connections[$name] = $this->makeConnection($name);
         }
 
@@ -82,11 +86,11 @@ class Manager
      *
      * @param string $name
      *
-     * @throws \Exception
+     * @throws Exception
      *
-     * @return \Elasticsearch\Client
+     * @return Client
      */
-    protected function makeConnection(string $name): \Elasticsearch\Client
+    protected function makeConnection(string $name): Client
     {
         return $this->factory->make($this->getConfig($name));
     }
@@ -102,8 +106,8 @@ class Manager
     {
         $connections = $this->app['config']['elasticsearch.connections'];
 
-        if (!array_key_exists($name, $connections)) {
-            throw new \InvalidArgumentException("Elasticsearch connection [$name] not configured.");
+        if (! array_key_exists($name, $connections)) {
+            throw new InvalidArgumentException("Elasticsearch connection [$name] not configured.");
         }
 
         return $connections[$name];
@@ -123,7 +127,7 @@ class Manager
      * Dynamically pass methods to the default connection.
      *
      * @param string $method
-     * @param array  $parameters
+     * @param array $parameters
      *
      * @throws ErrorException
      *
@@ -137,7 +141,7 @@ class Manager
             }
 
             return call_user_func_array([$this->connection(), $method], $parameters);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             throw ErrorException::make($exception->getCode(), $exception->getMessage());
         }
     }

@@ -1,20 +1,17 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: james.xue
- * Date: 2020/11/17
- * Time: 11:31.
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) vinhson <15227736751@qq.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
-
 namespace Vinhson\Elasticsearch;
 
+use InvalidArgumentException;
 use Illuminate\Contracts\Support\Arrayable;
-use Vinhson\Elasticsearch\Traits\ConnectionTrait;
-use Vinhson\Elasticsearch\Traits\DocTrait;
-use Vinhson\Elasticsearch\Traits\HasAttributeTrait;
-use Vinhson\Elasticsearch\Traits\IndicesTrait;
-use Vinhson\Elasticsearch\Traits\SearchTrait;
-use Vinhson\Elasticsearch\Traits\TemplateTrait;
+use Vinhson\Elasticsearch\Traits\{ConnectionTrait, DocTrait, HasAttributeTrait, IndicesTrait, SearchTrait, TemplateTrait};
 
 class SearchBuilder implements Arrayable
 {
@@ -29,15 +26,15 @@ class SearchBuilder implements Arrayable
 
     protected $params = [
         'index' => '',
-        'type'  => '',
-        'body'  => [],
+        'type' => '',
+        'body' => [],
     ];
 
     /**
      * SearchBuilder constructor.
      *
-     * @param null  $index
-     * @param null  $type
+     * @param null $index
+     * @param null $type
      * @param array $params
      */
     public function __construct($index = null, $type = null, array $params = [])
@@ -59,7 +56,7 @@ class SearchBuilder implements Arrayable
     protected function init($index = null, $type = null)
     {
         if (is_array($index)) {
-            list($index, $type) = $index;
+            [$index, $type] = $index;
         }
 
         $this->params['index'] = $index ?? 'elasticsearch_index';
@@ -70,8 +67,8 @@ class SearchBuilder implements Arrayable
      * Notes: 实例本类
      * Date: 2020/11/17 14:17.
      *
-     * @param null  $index
-     * @param null  $type
+     * @param null $index
+     * @param null $type
      * @param array $params
      *
      * @return SearchBuilder
@@ -90,8 +87,8 @@ class SearchBuilder implements Arrayable
      */
     public function connection(string $name = null): SearchBuilder
     {
-        if (!($name && $this->isExistsConnection($name))) {
-            throw new \InvalidArgumentException("Elasticsearch connection [$name] not configured.");
+        if (! ($name && $this->isExistsConnection($name))) {
+            throw new InvalidArgumentException("Elasticsearch connection [$name] not configured.");
         }
 
         $index = $this->getElasticsearchIndex($name);
@@ -285,7 +282,7 @@ class SearchBuilder implements Arrayable
     /**
      * Notes: 分页.
      *
-     * @param int $page     从第几页开始
+     * @param int $page 从第几页开始
      * @param int $pageLime 每页显示个数
      *
      * @return $this
@@ -334,7 +331,7 @@ class SearchBuilder implements Arrayable
      * Date: 2020/11/18 15:34.
      *
      * @param array $fields
-     * @param bool  $force
+     * @param bool $force
      *
      * @return $this
      */
@@ -361,7 +358,7 @@ class SearchBuilder implements Arrayable
             $this->unsetType();
         }
 
-        if (isset($this->params['body']['id']) && !isset($this->params['id'])) {
+        if (isset($this->params['body']['id']) && ! isset($this->params['id'])) {
             $this->params['id'] = $this->params['body']['id'];
         }
 

@@ -1,8 +1,17 @@
 <?php
-
+/**
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) vinhson <15227736751@qq.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 namespace Vinhson\Elasticsearch\Traits;
 
+use Exception;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 use Vinhson\Elasticsearch\Exceptions\ErrorException;
 use Vinhson\Elasticsearch\Facades\ElasticsearchClient;
 
@@ -59,7 +68,7 @@ trait SearchTrait
 
     /**
      * @param array $params
-     * @param null  $name
+     * @param null $name
      *
      * @throws ErrorException
      *
@@ -81,19 +90,19 @@ trait SearchTrait
      */
     protected function _call($name, $method, $arguments)
     {
-        if (!in_array($method, $this->validMethod)) {
-            throw new \InvalidArgumentException(sprintf('invalid method：%s', $method));
+        if (! in_array($method, $this->validMethod)) {
+            throw new InvalidArgumentException(sprintf('invalid method：%s', $method));
         }
 
-        if (!$this->isExistsConnection($name)) {
+        if (! $this->isExistsConnection($name)) {
             $name = $this->getDefaultConnection();
         }
 
-        $builder = $arguments && !empty($arguments) ? $arguments : $this->builder();
+        $builder = $arguments && ! empty($arguments) ? $arguments : $this->builder();
 
         try {
             return ElasticsearchClient::connection($name)->{$method}($builder);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             throw ErrorException::make($exception->getCode(), $exception->getMessage());
         }
     }

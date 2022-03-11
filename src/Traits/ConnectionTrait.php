@@ -1,12 +1,15 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: james.xue
- * Date: 2020/11/25
- * Time: 17:50.
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) vinhson <15227736751@qq.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
-
 namespace Vinhson\Elasticsearch\Traits;
+
+use Illuminate\Config\Repository;
 
 trait ConnectionTrait
 {
@@ -27,7 +30,7 @@ trait ConnectionTrait
      *
      * @param $name
      *
-     * @return \Illuminate\Config\Repository|mixed
+     * @return Repository|mixed
      */
     public function getElasticsearchIndex($name = null)
     {
@@ -41,7 +44,7 @@ trait ConnectionTrait
      *
      * @param $name
      *
-     * @return \Illuminate\Config\Repository|mixed
+     * @return Repository|mixed
      */
     public function getElasticsearchType($name = null)
     {
@@ -67,7 +70,7 @@ trait ConnectionTrait
      * Notes: 获取 is_unset_type 配置
      * Date: 2020/11/28 19:03.
      *
-     * @return \Illuminate\Config\Repository|mixed
+     * @return Repository|mixed
      */
     public function fetchIsUserType()
     {

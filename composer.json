@@ -24,6 +24,11 @@
         "symfony/var-dumper": "~4.0||~5.0||~6.0",
         "elasticsearch/elasticsearch": "~6.0||~7.0"
     },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "orchestra/testbench": "^4.0||^5.0||^6.0||^7.0",
+        "phpunit/phpunit": "^8.0 || ^9.0"
+    },
     "autoload": {
         "psr-4": {
             "Vinhson\\Elasticsearch\\": "src/"
@@ -31,6 +36,11 @@
         "files": [
             "src/helper.php"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vinhson\\Elasticsearch\\Tests\\": "tests/"
+        }
     },
     "extra": {
         "laravel": {
@@ -42,6 +52,14 @@
                 "ElasticsearchClient": "Vinhson\\Elasticsearch\\Facades\\ElasticsearchClient"
             }
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --colors=always",
+        "fix-style": "vendor/bin/php-cs-fixer fix --using-cache=no --ansi"
+    },
+    "scripts-descriptions": {
+        "test": "Run all tests.",
+        "fix-style": "Run style checks and fix violations."
     },
     "license": "MIT",
     "minimum-stability": "dev"

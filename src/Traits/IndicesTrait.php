@@ -1,13 +1,15 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: james.xue
- * Date: 2020/11/24
- * Time: 10:55.
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) vinhson <15227736751@qq.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
-
 namespace Vinhson\Elasticsearch\Traits;
 
+use stdClass;
 use Vinhson\Elasticsearch\SearchBuilder;
 
 trait IndicesTrait
@@ -94,9 +96,9 @@ trait IndicesTrait
     {
         $this->params['body']['settings']['analysis'] = array_filter([
             'char_filter' => $char_filter,
-            'filter'      => $filter,
-            'tokenizer'   => $tokenizer,
-            'analyzer'    => $analyzer,
+            'filter' => $filter,
+            'tokenizer' => $tokenizer,
+            'analyzer' => $analyzer,
         ]);
 
         return $this;
@@ -133,7 +135,7 @@ trait IndicesTrait
      * Date: 2020/11/21 23:34
      *
      * @param array $params
-     * @param bool  $force  是否修改映射
+     * @param bool $force 是否修改映射
      *
      * @return SearchBuilder
      *
@@ -154,7 +156,7 @@ trait IndicesTrait
      */
     public function putMapping(array $params = [], $force = false)
     {
-        if (!$force) {
+        if (! $force) {
             $this->params['body']['mappings'] = $params;
         } else {
             $this->params['body'] = $params;
@@ -185,7 +187,7 @@ trait IndicesTrait
      */
     public function setAliases($aliases)
     {
-        $aliases = is_array($aliases) ? $aliases : [$aliases => new \stdClass()];
+        $aliases = is_array($aliases) ? $aliases : [$aliases => new stdClass()];
 
         $this->params['body']['aliases'] = $aliases;
 
@@ -196,7 +198,7 @@ trait IndicesTrait
      * 对现有的索引添加别名.
      *
      * @param string $alias
-     * @param null   $index
+     * @param null $index
      *
      * @return array
      */
@@ -209,7 +211,7 @@ trait IndicesTrait
      * 索引别名是否存在.
      *
      * @param string $alias
-     * @param null   $index
+     * @param null $index
      *
      * @return array
      */
@@ -228,7 +230,7 @@ trait IndicesTrait
      * 对现有的索引添加别名.
      *
      * @param string $alias
-     * @param null   $index
+     * @param null $index
      *
      * @return array
      */

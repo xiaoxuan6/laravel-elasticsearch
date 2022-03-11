@@ -1,16 +1,17 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: james.xue
- * Date: 2020/11/24
- * Time: 14:22.
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) vinhson <15227736751@qq.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
-
 namespace Vinhson\Elasticsearch;
 
-use Elasticsearch\Client;
-use Elasticsearch\ClientBuilder;
+use Exception;
 use Illuminate\Support\Arr;
+use Elasticsearch\{Client, ClientBuilder};
 
 class Factory
 {
@@ -20,9 +21,9 @@ class Factory
      *
      * @param array $config
      *
-     * @throws \Exception
+     * @return Client
+     *@throws Exception
      *
-     * @return \Elasticsearch\Client
      */
     public function make(array $config): Client
     {
@@ -34,9 +35,9 @@ class Factory
      *
      * @param array $config
      *
-     * @throws \Exception
+     * @return Client
+     *@throws Exception
      *
-     * @return \Elasticsearch\Client
      */
     protected function client(array $config): Client
     {
@@ -55,7 +56,7 @@ class Factory
      *
      * @param ClientBuilder $clientBuilder
      *
-     * @throws \Exception
+     * @throws Exception
      *
      * @return ClientBuilder
      */

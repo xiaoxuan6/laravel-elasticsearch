@@ -1,31 +1,34 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: james.xue
- * Date: 2020/11/22
- * Time: 14:04.
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) vinhson <15227736751@qq.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
-
+use Elasticsearch\ClientBuilder;
+use Vinhson\Elasticsearch\SearchBuilder;
 use Symfony\Component\VarDumper\VarDumper;
 
-if (!function_exists('es')) {
+if (! function_exists('es')) {
     /**
-     * @return \Elasticsearch\ClientBuilder
+     * @return ClientBuilder
      */
-    function es()
+    function es(): ClientBuilder
     {
         return app('elasticsearch.connection');
     }
 }
 
-if (!function_exists('search')) {
+if (! function_exists('search')) {
     /**
      * @param null $index
      * @param null $type
      *
-     * @return \Vinhson\Elasticsearch\SearchBuilder
+     * @return SearchBuilder
      */
-    function search($index = null, $type = null): \Vinhson\Elasticsearch\SearchBuilder
+    function search($index = null, $type = null): Vinhson\Elasticsearch\SearchBuilder
     {
         $defaultConnection = null;
 
@@ -37,23 +40,23 @@ if (!function_exists('search')) {
         } elseif ($arguments = current($arguments) and is_array($arguments) and count($arguments) > 1) {
             $index = $arguments[0];
             $type = $arguments[1];
-        } elseif ($index && !$type && !is_array($index)) {
+        } elseif ($index && ! $type && ! is_array($index)) {
             $defaultConnection = $index;
         } else {
             $defaultConnection = config('elasticsearch.default');
         }
 
-        if (!$defaultConnection) {
-            $searchBuilder = \Vinhson\Elasticsearch\SearchBuilder::make($index, $type);
+        if (! $defaultConnection) {
+            $searchBuilder = SearchBuilder::make($index, $type);
         } else {
-            $searchBuilder = app(\Vinhson\Elasticsearch\SearchBuilder::class)->connection($defaultConnection);
+            $searchBuilder = app(SearchBuilder::class)->connection($defaultConnection);
         }
 
         return $searchBuilder;
     }
 }
 
-if (!function_exists('ddDump')) {
+if (! function_exists('ddDump')) {
     /**
      * @param $params
      */

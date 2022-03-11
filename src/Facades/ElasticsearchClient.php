@@ -1,18 +1,18 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: james.xue
- * Date: 2020/11/24
- * Time: 14:32.
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) vinhson <15227736751@qq.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
-
 namespace Vinhson\Elasticsearch\Facades;
 
 use Elasticsearch\Client;
-use Elasticsearch\Namespaces\ClusterNamespace;
-use Elasticsearch\Namespaces\IndicesNamespace;
-use Illuminate\Support\Facades\Facade;
 use Vinhson\Elasticsearch\Manager;
+use Illuminate\Support\Facades\Facade;
+use Elasticsearch\Namespaces\{ClusterNamespace, IndicesNamespace};
 
 /**
  * Class ElasticsearchClient.

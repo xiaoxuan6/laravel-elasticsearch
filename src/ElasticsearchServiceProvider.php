@@ -1,11 +1,12 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: james.xue
- * Date: 2020/11/22
- * Time: 13:54.
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) vinhson <15227736751@qq.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
-
 namespace Vinhson\Elasticsearch;
 
 use Illuminate\Support\ServiceProvider;
@@ -24,12 +25,12 @@ class ElasticsearchServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->publishes([__DIR__.'/../config/elasticsearch.php' => config_path('elasticsearch.php')], 'elasticsearch');
+        $this->publishes([__DIR__ . '/../config/elasticsearch.php' => config_path('elasticsearch.php')], 'elasticsearch');
     }
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/elasticsearch.php', 'elasticsearch');
+        $this->mergeConfigFrom(__DIR__ . '/../config/elasticsearch.php', 'elasticsearch');
 
         $this->registerElasticsearch();
 
