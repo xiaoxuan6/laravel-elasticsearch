@@ -45,8 +45,8 @@ $params = search("elastic1")->setKey(1)->unsetBody()->builder();
 ElasticsearchClient::connection("elastic1")->get($params);
 ```
 
-## About 
-`xiaoxuan6/laravel-elasticsearch` specific configuration and use, refer to: [xiaoxuan6/laravel-elasticsearch](https://github.com/xiaoxuan6/laravel-elasticsearch)
+## 更多使用方法
+[laravel-elasticsearch-demo](https://github.com/xiaoxuan6/laravel-elasticsearch-demo)
 
 ## License
 
