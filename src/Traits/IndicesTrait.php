@@ -254,6 +254,8 @@ trait IndicesTrait
      */
     public function updateAliases(array $actions = []): array
     {
+        $this->setAttribute(['body' => []]);
+
         $this->setBody($actions)->unsetType();
 
         unset($this->params['index']);

@@ -28,6 +28,7 @@ use Elasticsearch\Namespaces\{ClusterNamespace, IndicesNamespace};
  * @method static Client getScriptLanguages(array $params = [])
  * @method static Client getSource(array $params = [])
  * @method static Client index(array $params = [])
+ * @method static Client reindex(array $params = [])
  * @method static Client bulk(array $params = [])
  * @method static Client delete(array $params = [])
  * @method static Client deleteByQuery(array $params = [])

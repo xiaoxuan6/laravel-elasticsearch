@@ -10,6 +10,7 @@
 namespace Vinhson\Elasticsearch\Traits;
 
 use Illuminate\Config\Repository;
+use Vinhson\Elasticsearch\SearchBuilder;
 
 trait ConnectionTrait
 {
@@ -75,5 +76,10 @@ trait ConnectionTrait
     public function fetchIsUserType()
     {
         return config('elasticsearch.is_unset_type', false);
+    }
+
+    public function refresh($index = null): SearchBuilder
+    {
+        return SearchBuilder::make($index);
     }
 }
