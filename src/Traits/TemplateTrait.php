@@ -20,7 +20,7 @@ trait TemplateTrait
      */
     public function putTemplate(): PutTemplate
     {
-        return new PutTemplate($this->getIndex(), null, $this->params);
+        return new PutTemplate($this->getIndex());
     }
 
     /**
@@ -36,6 +36,6 @@ trait TemplateTrait
      */
     public function putComponentTemplate(): PutComponentTemplate
     {
-        return new PutComponentTemplate($this->getIndex(), null, $this->params);
+        return new PutComponentTemplate($this->getIndex());
     }
 }
