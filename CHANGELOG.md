@@ -2,6 +2,10 @@
 
 All notable changes to `xiaoxuan6/laravel-package-skeleton` will be documented in this file.
 
+## 2.3.0 - 2022-07-14
+
+**Full Changelog**: https://github.com/xiaoxuan6/laravel-elasticsearch/compare/2.2.1...2.3.0
+
 ## 2.2.1 - 2022-07-10
 
 ### What's Changed
