@@ -7,12 +7,12 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-namespace Vinhson\Elasticsearch\Indices;
+namespace Vinhson\Elasticsearch\Traits;
 
-class PutTemplate extends Template
+trait ToJsonTrait
 {
-    protected function getName(): string
+    public function toJson()
     {
-        return 'template_' . $this->getIndex();
+        return json_encode($this->builder(), JSON_UNESCAPED_UNICODE);
     }
 }

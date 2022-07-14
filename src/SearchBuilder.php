@@ -11,7 +11,15 @@ namespace Vinhson\Elasticsearch;
 
 use InvalidArgumentException;
 use Illuminate\Contracts\Support\Arrayable;
-use Vinhson\Elasticsearch\Traits\{ConnectionTrait, DocTrait, HasAttributeTrait, IndicesTrait, SearchTrait, TemplateTrait};
+use Vinhson\Elasticsearch\Traits\{ConnectionTrait,
+    DocTrait,
+    HasAttributeTrait,
+    IndicesTrait,
+    SearchTrait,
+    TemplateTrait,
+    ToArayTrait,
+    ToJsonTrait
+};
 
 class SearchBuilder implements Arrayable
 {
@@ -21,6 +29,8 @@ class SearchBuilder implements Arrayable
     use IndicesTrait;
     use TemplateTrait;
     use SearchTrait;
+    use ToArayTrait;
+    use ToJsonTrait;
 
     public $result;
 
@@ -203,7 +213,7 @@ class SearchBuilder implements Arrayable
      */
     public function setBody(array $body = []): SearchBuilder
     {
-        $this->params['body'] = $body + $this->params['body'];
+        $this->params['body'] = $body;
 
         return $this;
     }
@@ -363,15 +373,5 @@ class SearchBuilder implements Arrayable
         }
 
         return $this->params;
-    }
-
-    /**
-     * 以数组格式输出.
-     *
-     * @return void
-     */
-    public function toArray()
-    {
-        ddDump($this->builder());
     }
 }

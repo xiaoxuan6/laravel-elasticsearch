@@ -9,13 +9,8 @@
  */
 namespace Vinhson\Elasticsearch\Indices;
 
-use Vinhson\Elasticsearch\SearchBuilder;
-use Vinhson\Elasticsearch\Indices\Traits\TemplateTrait;
-
-class PutIndexTemplate extends SearchBuilder
+class PutIndexTemplate extends Template
 {
-    use TemplateTrait;
-
     protected function getName(): string
     {
         return 'index_template_' . $this->getIndex();

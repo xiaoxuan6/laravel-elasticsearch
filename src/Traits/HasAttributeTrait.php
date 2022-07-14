@@ -11,7 +11,6 @@ namespace Vinhson\Elasticsearch\Traits;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Macroable;
-use Vinhson\Elasticsearch\SearchBuilder;
 
 trait HasAttributeTrait
 {
@@ -40,9 +39,8 @@ trait HasAttributeTrait
      *
      * @param $attributes
      *
-     * @return SearchBuilder
      */
-    public function unsetAttribute($attributes): SearchBuilder
+    public function unsetAttribute($attributes)
     {
         $attributes = Arr::wrap($attributes);
 

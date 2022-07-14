@@ -7,12 +7,17 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-namespace Vinhson\Elasticsearch\Indices;
+namespace Vinhson\Elasticsearch\Traits;
 
-class PutTemplate extends Template
+trait ToArayTrait
 {
-    protected function getName(): string
+    /**
+     * 以数组格式输出.
+     *
+     * @return void
+     */
+    public function toArray()
     {
-        return 'template_' . $this->getIndex();
+        ddDump($this->builder());
     }
 }

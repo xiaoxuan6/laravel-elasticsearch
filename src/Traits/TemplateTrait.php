@@ -28,7 +28,7 @@ trait TemplateTrait
      */
     public function putIndexTemplate(): PutIndexTemplate
     {
-        return new PutIndexTemplate($this->getIndex(), null, $this->params);
+        return new PutIndexTemplate($this->getIndex());
     }
 
     /**
