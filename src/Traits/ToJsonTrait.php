@@ -11,7 +11,7 @@ namespace Vinhson\Elasticsearch\Traits;
 
 trait ToJsonTrait
 {
-    public function toJson()
+    public function toJson($options = 0)
     {
         return json_encode($this->builder(), JSON_UNESCAPED_UNICODE);
     }
