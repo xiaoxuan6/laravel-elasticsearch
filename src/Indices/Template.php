@@ -11,7 +11,7 @@ namespace Vinhson\Elasticsearch\Indices;
 
 use Vinhson\Elasticsearch\Traits\{HasAttributeTrait, ToArayTrait, ToJsonTrait};
 
-class Template
+abstract class Template
 {
     use HasAttributeTrait;
     use ToArayTrait;
@@ -39,12 +39,14 @@ class Template
      *
      * @return $this
      */
-    public function name(string $templateName)
+    public function name(string $templateName): Template
     {
         $this->params['name'] = $templateName;
 
         return $this;
     }
+
+    abstract protected function getName(): string;
 
     /**
      * 必须配置，用于在创建期间匹配索引名称的通配符（*）表达式数组.
@@ -55,7 +57,7 @@ class Template
      *
      * @return $this
      */
-    public function indexPatterns($pattern)
+    public function indexPatterns($pattern): Template
     {
         $pattern = is_array($pattern) ? $pattern : [$pattern];
 
@@ -64,7 +66,7 @@ class Template
         return $this;
     }
 
-    public function putTemplateParams(array $template = [])
+    public function putTemplateParams(array $template = []): Template
     {
         $this->params['body']['template'] = $template;
 
@@ -78,21 +80,21 @@ class Template
      *
      * @return $this
      */
-    public function composedOf(array $composed_of = [])
+    public function composedOf(array $composed_of = []): Template
     {
         $this->params['body']['composed_of'] = $composed_of;
 
         return $this;
     }
 
-    public function dataStream(array $data_stream = [])
+    public function dataStream(array $data_stream = []): Template
     {
         $this->params['body']['data_stream'] = $data_stream;
 
         return $this;
     }
 
-    public function priority(int $priority = 0)
+    public function priority(int $priority = 0): Template
     {
         $this->params['body']['priority'] = $priority;
 
@@ -106,7 +108,7 @@ class Template
      *
      * @return $this
      */
-    public function version($version)
+    public function version($version): Template
     {
         $this->params['body']['version'] = $version;
 
@@ -120,35 +122,35 @@ class Template
      *
      * @return $this
      */
-    public function meta(array $meta = [])
+    public function meta(array $meta = []): Template
     {
         $this->params['_meta'] = $meta;
 
         return $this;
     }
 
-    public function putSettings(array $params = [])
+    public function putSettings(array $params = []): Template
     {
         $this->params['body']['template']['settings'] = $params;
 
         return $this;
     }
 
-    public function putMapping(array $params = [], $force = false)
+    public function putMapping(array $params = [], $force = false): Template
     {
         $this->params['body']['template']['mappings']['properties'] = $params;
 
         return $this;
     }
 
-    public function setAliases(array $aliases = [])
+    public function setAliases(array $aliases = []): Template
     {
         $this->params['body']['template']['aliases'] = $aliases;
 
         return $this;
     }
 
-    public function putOverlapping(array $overlapping = [])
+    public function putOverlapping(array $overlapping = []): Template
     {
         $this->params['body']['overlapping'] = $overlapping;
 
