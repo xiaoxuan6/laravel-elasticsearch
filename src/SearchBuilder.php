@@ -9,9 +9,8 @@
  */
 namespace Vinhson\Elasticsearch;
 
-use Illuminate\Contracts\Support\Jsonable;
 use InvalidArgumentException;
-use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\{Arrayable, Jsonable};
 use Vinhson\Elasticsearch\Traits\{ConnectionTrait,
     DocTrait,
     HasAttributeTrait,
@@ -22,7 +21,7 @@ use Vinhson\Elasticsearch\Traits\{ConnectionTrait,
     ToJsonTrait
 };
 
-class SearchBuilder implements Arrayable,Jsonable
+class SearchBuilder implements Arrayable, Jsonable
 {
     use ConnectionTrait;
     use DocTrait;
