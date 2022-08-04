@@ -2,6 +2,14 @@
 
 All notable changes to `xiaoxuan6/laravel-package-skeleton` will be documented in this file.
 
+## 2.3.1 - 2022-08-04
+
+### What's Changed
+
+[锁定版本 elastisearch 8.0 之后命名空间修改](https://github.com/elastic/elasticsearch-php/blob/8.0/CHANGELOG.md#release-800-alpha)
+
+**Full Changelog**: https://github.com/xiaoxuan6/laravel-elasticsearch/compare/2.3.0...2.3.1
+
 ## 2.3.0 - 2022-07-14
 
 **Full Changelog**: https://github.com/xiaoxuan6/laravel-elasticsearch/compare/2.2.1...2.3.0
